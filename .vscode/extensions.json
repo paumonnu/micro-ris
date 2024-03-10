@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "mikestead.dotenv",
+    "enkia.tokyo-night",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "humao.rest-client",
+    "vscode-icons-team.vscode-icons"
+  ]
+}

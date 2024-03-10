@@ -1,0 +1,16 @@
+{
+  "name": "notify-app",
+  "version": "0.1.0",
+  "description": "Notification App",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paumonnu/notify-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paumonnu/notify-app/issues"
+  },
+  "homepage": "https://github.com/paumonnu/notify-app#readme"
+}

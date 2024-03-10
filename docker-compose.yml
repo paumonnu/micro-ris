@@ -1,0 +1,33 @@
+version: "3"
+services:
+  # node:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   image: notifyapp/api
+  #   user: "node"
+  #   working_dir: /home/node/app
+  #   environment:
+  #     - NODE_ENV=development
+  #   volumes:
+  #     - ./api:/home/node/app
+  #   ports:
+  #     - 8880:8880
+  #     - 9229:9229
+  #   command: "npm run start:debug"
+
+  db:
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - notifyappdb:/var/lib/postgresql/data/
+    ports:
+      - 8881:5432
+    environment:
+      POSTGRES_DB: notifyappdb
+      POSTGRES_USER: notifyappdbusr
+      POSTGRES_PASSWORD: 6mahoney9!
+
+volumes:
+  notifyappdb:
+  notifyappdbtest:

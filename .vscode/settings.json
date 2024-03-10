@@ -1,0 +1,63 @@
+{
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.guides.bracketPairs": "active",
+  "editor.minimap.enabled": true,
+  "editor.rulers": [120],
+  "editor.trimAutoWhitespace": false,
+  "editor.wordWrap": "on",
+  "editor.detectIndentation": false,
+  "eslint.run": "onSave",
+  "eslint.workingDirectories": ["./api"],
+  "files.autoSave": "onFocusChange",
+  "files.associations": {
+    ".env*": "dotenv"
+  },
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "hostname": "localhost",
+      "port": "3000",
+      "protocol": "http",
+      "token": "",
+      "version": "v1"
+    },
+    "development": {
+      "hostname": "localhost",
+      "port": "3000",
+      "protocol": "http",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmY2ZmVjNGRmY2M5MTRmMWQzOTNhZCIsImlhdCI6MTcwNzA0NTgyNSwiZXhwIjoxNzE0ODIxODI1fQ.t_YtvLUbRz7cSSKLMhPGcCU7hX4F-m8EqARczJKPIWQ",
+      "version": "v1"
+    },
+    "production": {
+      "hostname": "localhost",
+      "port": "3000",
+      "protocol": "http",
+      "token": "",
+      "version": "v1"
+    }
+  },
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#1b203a"
+  },
+  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.statusBar.visible": true,
+  "editor.tabSize": 2,
+  "vsicons.associations.files": [
+    {
+      "icon": "rollup",
+      "extensions": ["rollup.config.app.js", "rollup.config.cli.js"],
+      "filename": true,
+      "format": "svg"
+    }
+  ]
+}
