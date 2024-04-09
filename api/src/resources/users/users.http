@@ -1,0 +1,14 @@
+### CREATE
+POST http://localhost:3000/users
+content-type: application/json
+
+{
+  "email": "fafsa@fajsf.com",
+  "password": "gkjvsdhgsd"
+}
+
+### GET
+GET http://localhost:3000/users?email=a@a.test
+
+### GET ONE
+GET http://localhost:3000/users/299df7e4-24c8-4411-8226-d5305e3715a6

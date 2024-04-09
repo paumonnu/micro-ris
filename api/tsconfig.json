@@ -1,33 +1,21 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "noEmitOnError": false,
-    "removeComments": false,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
     "skipLibCheck": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "target": "ESNext",
-    "types": ["node", "express", "pg"],
-    "paths": {
-      "@assets/*": ["./src/assets/*"],
-      "@db/*": ["./src/db/*"],
-      "@config/*": ["./src/config/*"],
-      "@controllers/*": ["./src/controllers/*"],
-      "@middleware/*": ["./src/middleware/*"],
-      "@models/*": ["./src/db/models/*"],
-      "@routers/*": ["./src/routers/*"],
-      "@services/*": ["./src/services/*"],
-      "@tests/*": ["./src/tests/*"],
-      "@cli/*": ["./src/cli/*"],
-      "@utilities/*": ["./src/utilities/*"]
-    }
-  },
-  "include": ["./src/**/*.ts", "./tests/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "node_modules/**"]
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }

@@ -52,12 +52,6 @@
   "workbench.colorTheme": "Tokyo Night Storm",
   "workbench.statusBar.visible": true,
   "editor.tabSize": 2,
-  "vsicons.associations.files": [
-    {
-      "icon": "rollup",
-      "extensions": ["rollup.config.app.js", "rollup.config.cli.js"],
-      "filename": true,
-      "format": "svg"
-    }
-  ]
+  "material-icon-theme.activeIconPack": "nest",
+  "material-icon-theme.files.associations": {}
 }
