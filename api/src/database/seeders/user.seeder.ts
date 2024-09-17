@@ -1,5 +1,5 @@
 import { hash } from 'bcrypt';
-import { User } from '../../resources/users/entities/user.entity';
+import { User } from '../../modules/resources/users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
@@ -9,7 +9,6 @@ export default class UserSeeder implements Seeder {
     factoryManager: SeederFactoryManager,
   ): Promise<any> {
     const repository = dataSource.getRepository(User);
-
     // const data = {
     //   userName: 'admin',
     //   password: await hash('admin', 10),
@@ -29,6 +28,6 @@ export default class UserSeeder implements Seeder {
     const userFactory = await factoryManager.get(User);
 
     // Insert many records in database.
-    await userFactory.saveMany(40);
+    await userFactory.saveMany(250);
   }
 }

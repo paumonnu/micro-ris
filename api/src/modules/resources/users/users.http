@@ -1,0 +1,28 @@
+
+### GET
+GET http://localhost:3000/users?page=1&fields=id,email,createdAt&sort=email&id[in]=01925efb-8c5d-4f40-b25f-6b84e5dd6eb3,04e190f4-68b7-44d3-ae85-62b957e1c8a2
+
+### GET ONE
+GET http://localhost:3000/users/2f902979-061f-4926-afd1-fd43366651f1
+
+### CREATE
+POST http://localhost:3000/users
+content-type: application/json
+
+{
+  "email": "fafsa@fajsf.com",
+  "password": "gkjvsdhgsd"
+}
+
+### UPDATE
+PATCH http://localhost:3000/users/2f902979-061f-4926-afd1-fd43366651f1
+content-type: application/json
+
+{
+  "email": "fjytrfcjjtr@fasf.com",
+  "password": "fsagdsg"
+}
+
+### DELETE
+DELETE http://localhost:3000/users/2f902979-061f-4926-afd1-fd43366651f1
+content-type: application/json
