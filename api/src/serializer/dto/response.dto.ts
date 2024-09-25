@@ -63,28 +63,6 @@ export class SuccessResponseDto extends ApiResponseDto {
   data: ResourceDto | ResourceDto[];
 
   @Expose()
-  @Transform(({ value, key, obj, type }) => {
-    const getIncludes = (resource: ResourceDto) => {
-      const relationships = resource.relationships;
-      const includes = [];
-
-      Object.keys(resource.relationships).map((relKey) => {
-        if (Array.isArray(relationships[relKey])) {
-          return relationships[relKey].map((relation) => {
-            includes.push(relation);
-          });
-        }
-
-        includes.push(relationships[relKey]);
-      });
-
-      return includes;
-    };
-
-    const includes = getIncludes(obj.data);
-
-    return includes;
-  })
   includes?: ResourceDto[];
 
   @Expose()

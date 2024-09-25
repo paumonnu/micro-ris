@@ -33,7 +33,9 @@ export class SerializeInterceptor implements NestInterceptor {
 
     return handler.handle().pipe(
       map((data: ClassContructor) => {
-        return this.serializerService.serialize(data);
+        const serialized = this.serializerService.serialize(data);
+        console.log(serialized);
+        return serialized;
       }),
     );
   }

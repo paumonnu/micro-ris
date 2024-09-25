@@ -21,22 +21,5 @@ export class ResourceDto {
   attributes: object;
 
   @Expose()
-  @Transform(({ value, key, obj, type }) => {
-    const relationships = obj.relationships;
-
-    Object.keys(relationships).map((relKey) => {
-      relationships[relKey] = relationships[relKey];
-
-      if (Array.isArray(relationships[relKey])) {
-        return relationships[relKey].map((relation) => {
-          includes.push(relation);
-        });
-      }
-
-      includes.push(relationships[relKey]);
-    });
-
-    return includes;
-  })
   relationships?: object;
 }
