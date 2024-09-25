@@ -1,0 +1,22 @@
+### LOGIN
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "pau@gmail.com",
+  "password": "6Mahoney9!"
+}
+
+### REFRESH 
+POST http://localhost:3000/api/auth/refresh
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### ME 
+GET http://localhost:3000/api/auth/me
+Content-Type: application/json
+Authorization: Bearer {{token}}

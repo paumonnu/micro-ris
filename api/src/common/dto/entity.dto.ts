@@ -1,10 +1,15 @@
-export class EntityDto<T> {
-  readonly data: T;
+import { Expose } from 'class-transformer';
 
-  readonly relationships: [];
+export class BaseEntityDto {
+  @Expose()
+  id: string;
 
-  constructor(data: T) {
-    this.data = data;
-    this.relationships = [];
-  }
+  @Expose()
+  type: string;
+
+  @Expose()
+  createdAt: Date;
+
+  @Expose()
+  updatedAt: Date;
 }

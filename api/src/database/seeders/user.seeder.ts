@@ -1,33 +1,29 @@
 import { hash } from 'bcrypt';
-import { User } from '../../modules/resources/users/entities/user.entity';
+import { User } from '../../api/users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
+import { Role } from '@/src/api/roles/entities/role.entity';
 
 export default class UserSeeder implements Seeder {
   public async run(
     dataSource: DataSource,
     factoryManager: SeederFactoryManager,
   ): Promise<any> {
-    const repository = dataSource.getRepository(User);
-    // const data = {
-    //   userName: 'admin',
-    //   password: await hash('admin', 10),
-    //   role: UserRole.ADMIN,
-    //   isActivated: true,
-    // };
-
-    // const user = await repository.findOneBy({ userName: data.userName });
-
-    // // Insert only one record with this username.
-    // if (!user) {
-    //   await repository.insert([data]);
-    // }
-
-    // ---------------------------------------------------
-
     const userFactory = await factoryManager.get(User);
+    const rolesRepo = dataSource.getRepository(Role);
+    const roles = await rolesRepo.find();
 
-    // Insert many records in database.
-    await userFactory.saveMany(250);
+    const adminRole = roles.find((role) => role.name == 'Admin');
+    const otherRoles = roles.filter((role) => role.name != 'Admin');
+
+    await userFactory.save({
+      email: 'pau@gmail.com',
+      password: '6Mahoney9!',
+      role: adminRole,
+    });
+
+    await userFactory.saveMany(250, {
+      role: otherRoles[Math.floor(Math.random() * otherRoles.length)],
+    });
   }
 }

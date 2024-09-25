@@ -25,25 +25,16 @@
   },
   "rest-client.environmentVariables": {
     "$shared": {
-      "hostname": "localhost",
-      "port": "3000",
-      "protocol": "http",
-      "token": "",
       "version": "v1"
     },
-    "development": {
-      "hostname": "localhost",
-      "port": "3000",
-      "protocol": "http",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmY2ZmVjNGRmY2M5MTRmMWQzOTNhZCIsImlhdCI6MTcwNzA0NTgyNSwiZXhwIjoxNzE0ODIxODI1fQ.t_YtvLUbRz7cSSKLMhPGcCU7hX4F-m8EqARczJKPIWQ",
-      "version": "v1"
+    "local": {
+      "host": "http://localhost:3000/api",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZGM0OGQ1ZC04OTllLTRkY2QtOTE0Mi0xOTBhNmVkM2E1ZDEiLCJpYXQiOjE3MjcxNjg4MjEsImV4cCI6MTcyNzI1NTIyMX0.glAskoA0-kExwDJoO2nnveEOPt2M1Z_rk5RTXIfzn4k",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZGM0OGQ1ZC04OTllLTRkY2QtOTE0Mi0xOTBhNmVkM2E1ZDEiLCJpYXQiOjE3MjcxNjg4MjEsImV4cCI6MTcyODQ2NDgyMX0.LHWPgTn6nPFyAVOTUq7QvNRTMrnXqKOob4ZYEi9Shs8"
     },
     "production": {
-      "hostname": "localhost",
-      "port": "3000",
-      "protocol": "http",
-      "token": "",
-      "version": "v1"
+      "host": "example.com",
+      "token": "{{$shared prodToken}}"
     }
   },
   "workbench.colorCustomizations": {

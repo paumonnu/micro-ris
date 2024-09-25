@@ -1,14 +1,34 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import {
+  Module,
+  UnprocessableEntityException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AppService } from './app.service';
-import { UsersModule } from './modules/resources/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_PIPE } from '@nestjs/core';
-import { typeOrmConfig } from './config/database/typeorm.config';
-import { ResourceModule } from './modules/resources/resources.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { APP_INTERCEPTOR, APP_PIPE, RouterModule } from '@nestjs/core';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ApiModule } from './api/api.module';
+import { SerializerModule } from './serializer/serializer.module';
+import configuration from './config/configuration';
+import routes from './config/routes.config';
+import { SerializeInterceptor } from './serializer/serialize.interceptor';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), ResourceModule, AuthModule],
+  imports: [
+    RouterModule.register(routes),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env'],
+      load: configuration,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => config.get('database'),
+      inject: [ConfigService],
+    }),
+    ApiModule,
+    SerializerModule,
+  ],
   controllers: [],
   providers: [
     AppService,
@@ -17,7 +37,19 @@ import { AuthModule } from './modules/auth/auth.module';
       useValue: new ValidationPipe({
         whitelist: true,
         transform: true,
-        // transformOptions: { enableImplicitConversion: true },
+        exceptionFactory: (errors) => {
+          return new UnprocessableEntityException({
+            statusCode: 422,
+            error: 'Unprocessable Entity',
+            message: errors.reduce(
+              (acc, e) => ({
+                ...acc,
+                [e.property]: Object.values(e.constraints),
+              }),
+              {},
+            ),
+          });
+        },
       }),
     },
   ],

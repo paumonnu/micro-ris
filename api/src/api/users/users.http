@@ -1,0 +1,33 @@
+### GET
+GET {{host}}/resources/users?take=2&sort=createdAt
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### GET ONE
+GET {{host}}/resources/users/6dc48d5d-899e-4dcd-9142-190a6ed3a5d1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### CREATE
+POST {{host}}/resources/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "12345678@fasf.com",
+  "password": "gkjvsdhgsd"
+}
+
+### UPDATE
+PATCH {{host}}/resources/users/6dc48d5d-899e-4dcd-9142-190a6ed3a5d1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "password": "6Mahoney9!"
+}
+
+### DELETE
+DELETE {{host}}/resources/users/6dc48d5d-899e-4dcd-9142-190a6ed3a5d1
+Content-Type: application/json
+Authorization: Bearer {{token}}

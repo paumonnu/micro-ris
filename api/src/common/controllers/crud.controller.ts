@@ -12,14 +12,22 @@ import {
   Injectable,
   UsePipes,
   Query,
+  HttpCode,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ICrudService } from '../services/crud.service';
 import { BaseEntity } from '../entities/base.entity';
 import { GetResourceByIdDto } from '../dto/uuid.dto';
-import { Serialize } from '../decorators/serialize.decorator';
+import {
+  Serialize,
+  SerializeResource,
+  SerializeResourcePage,
+} from '../decorators/serialize.decorator';
 import { Page } from '../dto/pagination.dto';
-import { PageDto } from '../dto/serialize.dto';
-import { User } from '@/src/modules/resources/users/entities/user.entity';
+import { User } from '@/src/api/users/entities/user.entity';
+import { AuthGuard } from '@/src/api/auth/auth.guard';
+import { SerializeInterceptor } from '../../serializer/serialize.interceptor';
 
 @Injectable()
 export class AbstractValidationPipe extends ValidationPipe {
@@ -77,41 +85,42 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
     { query: queryDto },
   );
 
+  @UseGuards(AuthGuard)
+  @UseInterceptors(SerializeInterceptor)
   class CrudController<T extends BaseEntity, C, U, Q>
     implements ICrudController<T, C, U, Q>
   {
     protected service: ICrudService<T, C, U, Q>;
 
     @Post()
+    @HttpCode(201)
     @UsePipes(createPipe)
-    @Serialize(entityDto)
+    // @SerializeResource(entityDto)
     async create(@Body() body: C): Promise<T> {
-      const e = await this.service.create(body);
-      return e;
+      return await this.service.create(body);
     }
 
     @Get(':id')
-    @Serialize(entityDto)
     async getOne(@Param() params: GetResourceByIdDto): Promise<T> {
       return await this.service.getOne(params.id);
     }
 
     @Get()
     @UsePipes(queryPipe)
-    @Serialize(PageDto<T>)
+    // @SerializeResourcePage(entityDto)
     async get(@Query() query: Q): Promise<Page<T>> {
       return await this.service.get(query);
     }
 
     @Delete(':id')
-    @Serialize(entityDto)
+    // @SerializeResource(entityDto)
     async delete(@Param() params: GetResourceByIdDto): Promise<T> {
       return this.service.delete(params.id);
     }
 
     @Patch(':id')
     @UsePipes(updatePipe)
-    @Serialize(entityDto)
+    // @SerializeResource(entityDto)
     async update(
       @Param() params: GetResourceByIdDto,
       @Body() body: U,
