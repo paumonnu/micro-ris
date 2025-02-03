@@ -1,7 +1,4 @@
-import { Expose, Transform, Type } from 'class-transformer';
-import { BaseEntityDto } from '../../core/dto/entity.dto';
-import { DataSource } from 'typeorm';
-import { getRepository } from 'typeorm';
+import { Expose } from 'class-transformer';
 
 export class ResourceDto {
   constructor({ id, type, attributes, relationships }) {

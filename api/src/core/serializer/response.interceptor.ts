@@ -9,9 +9,9 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { instanceToPlain } from 'class-transformer';
-import { Page } from '../core/dto/pagination.dto';
 import { ErrorResponseDto, SuccessResponseDto } from './dto/response.dto';
 import { ResourceDto } from './dto/resource.dto';
+import { Page } from '../dto/pagination.dto';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {

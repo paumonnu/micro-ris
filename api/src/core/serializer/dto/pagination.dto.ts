@@ -1,7 +1,5 @@
-import { Expose, Transform, Type } from 'class-transformer';
-import { BaseEntityDto } from '../../core/dto/entity.dto';
-import { DataSource } from 'typeorm';
-import { getRepository } from 'typeorm';
+import { Expose, Type } from 'class-transformer';
+
 import { ResourceDto } from './resource.dto';
 
 export class PaginationMetaDto {

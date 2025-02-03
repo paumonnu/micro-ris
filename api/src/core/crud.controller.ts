@@ -10,16 +10,16 @@ import {
   Query,
   HttpCode,
   BadRequestException,
+  UseInterceptors,
 } from '@nestjs/common';
 import { BaseEntity } from './entities/base.entity';
 import { ICrudService } from './crud.service';
 import { CrudValidationPipe } from './crud-validation.pipe';
 import { Page } from './dto/pagination.dto';
 import { ResourceByIdDto } from './dto/uuid.dto';
-import {
-  SerializeResource,
-  SerializeResourcePage,
-} from './decorators/serialize.decorator';
+import { queryOneBuilder } from './utils/query';
+import { QueryOneDto } from './dto/query.dto';
+import { SerializeInterceptor } from './serializer/serialize.interceptor';
 
 export interface ICrudController<
   EntityType extends BaseEntity,
@@ -76,14 +76,14 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
     @Post()
     @HttpCode(201)
     @UsePipes(createPipe)
-    @SerializeResource()
+    @UseInterceptors(SerializeInterceptor)
     async create(@Body() body: C): Promise<T> {
       return await this.service.create(body);
     }
 
     @Get(':id')
     @UsePipes(queryOnePipe)
-    @SerializeResource()
+    @UseInterceptors(SerializeInterceptor)
     async getOne(
       @Query() query: QueryOneDto,
       @Param() params: ResourceByIdDto,
@@ -94,20 +94,20 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
 
     @Get()
     @UsePipes(queryPipe)
-    @SerializeResourcePage()
+    // @SerializeResourcePage()
     async get(@Query() query: Q): Promise<Page<T>> {
       return await this.service.get(query);
     }
 
     @Delete(':id')
-    @SerializeResource()
+    // @SerializeResource()
     async delete(@Param() params: ResourceByIdDto): Promise<T> {
       return this.service.delete(params.id);
     }
 
     @Patch(':id')
     @UsePipes(updatePipe)
-    @SerializeResource()
+    // @SerializeResource()
     async update(
       @Param() params: ResourceByIdDto,
       @Body() body: U,

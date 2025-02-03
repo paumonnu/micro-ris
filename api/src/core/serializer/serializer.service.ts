@@ -6,6 +6,7 @@ import { ResourceDto } from './dto/resource.dto';
 import { isEmpty } from 'class-validator';
 import { PageDto } from './dto/pagination.dto';
 import { BaseEntity } from '../entities/base.entity';
+import { Page } from '../dto/pagination.dto';
 
 @Injectable()
 export class SerializerService {

@@ -1,5 +1,6 @@
 ### GET
 # GET {{host}}/resources/users?id=8446e447-f795-49c7-85d2-27741d744237&limit=1&sort=createdAt&include=role.permissions
+# GET {{host}}/resources/users?limit=2&email[lk]=pau%&include=role.permissions
 GET {{host}}/resources/users?limit=2&email[lk]=pau%&include=role.permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}

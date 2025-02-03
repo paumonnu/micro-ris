@@ -1,7 +1,7 @@
 import { IsFilterableField } from '@/src/core/decorators/filterable-field.decorator';
-import { QueryManyResourcesDto } from '@/src/core/dto/query.dto';
+import { QueryManyDto } from '@/src/core/dto/query.dto';
 
-export class QueryPermissiosnDto extends QueryManyResourcesDto {
+export class QueryPermissiosnDto extends QueryManyDto {
   @IsFilterableField()
   name: string | object;
 

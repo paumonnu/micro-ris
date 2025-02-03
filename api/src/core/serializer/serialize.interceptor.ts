@@ -6,18 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  classToPlain,
-  instanceToPlain,
-  plainToClass,
-  plainToInstance,
-} from 'class-transformer';
-import { Page } from '../core/dto/pagination.dto';
-import { BaseEntity } from '../core/entities/base.entity';
-import { serialize } from 'v8';
-import { User } from '@/src/api/users/entities/user.entity';
-import { serializeEntity } from '../core/utils/serialization';
-import { dataSource } from '@/src/config/typeorm-datasource.config';
+import { SerializerService } from './serializer.service';
 
 export interface ClassContructor {
   new (...args: any[]): object;

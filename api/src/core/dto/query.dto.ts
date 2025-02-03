@@ -50,51 +50,34 @@ export class FilterField {
   in: string;
 }
 
-export class QueryDto {
+export class QueryOneDto {
   @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  id: string;
+  include: string;
 
   @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  createdAt: string;
+  fields: string;
+}
 
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  updatedAt: string;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  deletedAt: string;
-
+export class QueryManyDto {
   @IsInt()
   @Min(1)
   @Transform(({ value }) => parseInt(value))
-  page: number = 1;
+  @IsOptional()
+  page?: number = 1;
 
   @IsInt()
   @Min(1)
-  @Max(100)
+  @Max(250)
   @Transform(({ value }) => parseInt(value))
-  take: number = 25;
-
-  @IsArray()
   @IsOptional()
-  @IsString({ each: true })
-  @Transform(({ value }) => {
-    return (value as string).split(',');
-  })
-  sort: string[] = ['id'];
+  limit?: number = 25;
 
-  @IsArray()
   @IsOptional()
-  @IsString({ each: true })
-  @Transform(({ value }) => {
-    return (value as string).split(',');
-  })
-  fields: string[] = [];
+  include?: string = null;
+
+  @IsOptional()
+  sort?: string = 'id';
+
+  @IsOptional()
+  fields?: string = null;
 }

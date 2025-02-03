@@ -18,9 +18,9 @@ import {
   And,
 } from 'typeorm';
 import { BaseEntity } from './entities/base.entity';
-import { Page } from '../../../app/serializer/dto/pagination.dto';
 import { QueryManyDto, QueryOneDto } from './dto/query.dto';
 import { queryManyBuilder, queryOneBuilder } from './utils/query';
+import { Page } from './dto/pagination.dto';
 
 export interface ICrudService<
   EntityType extends BaseEntity,
@@ -74,13 +74,20 @@ export function CrudServiceFactory<
 
       const [result, total] = await this.repository.findAndCount(findOptions);
 
-      const pageResult = new Page<T>();
-
-      pageResult.init(result, {
+      // const pageResult = new Page<T>();
+      const pageResult = new Page<T>(result, {
         page: queryDto.page,
         take: queryDto.limit,
         count: total,
       });
+
+      console.log(pageResult);
+
+      // pageResult.init(result, {
+      //   page: queryDto.page,
+      //   take: queryDto.limit,
+      //   count: total,
+      // });
 
       return pageResult;
     }
