@@ -1,10 +1,7 @@
-import { IsArray, ValidateNested, IsOptional } from 'class-validator';
-import { Type } from 'class-transformer';
-import { FilterField, QueryDto } from '@/src/common/dto/query.dto';
+import { QueryManyResourcesDto } from '@/src/core/dto/query.dto';
+import { IsFilterableField } from '@/src/core/decorators/filterable-field.decorator';
 
-export class QueryUserDto extends QueryDto {
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  email: FilterField;
+export class QueryUserDto extends QueryManyResourcesDto {
+  @IsFilterableField()
+  email: string | object;
 }

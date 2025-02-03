@@ -18,8 +18,12 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:watch": "jest --watch",
     "test": "jest",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/config/typeorm-datasource.config.ts",
-    "typeorm-extension": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs -d src/config/typeorm-datasource.config.ts"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/database/seed-source.ts",
+    "typeorm-extension": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs -d src/database/seed-source.ts",
+    "db:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs db:create -d src/database/seed-source.ts",
+    "db:drop": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d src/database/seed-source.ts",
+    "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d src/database/seed-source.ts",
+    "seed:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:create -d src/database/seed-source.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -39,7 +43,7 @@
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
-    "typeorm-extension": "^3.5.0",
+    "typeorm-extension": "^3.6.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

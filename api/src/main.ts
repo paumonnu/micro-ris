@@ -1,18 +1,24 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ResponseInterceptor } from './serializer/response.interceptor';
-// import { TypeOrmExceptionFilter } from './common/filters/all-exceptions.filter';
+import { ConfigService } from '@nestjs/config';
+// import { TypeOrmExceptionFilter } from './core/filters/typeorm.filter';
+// import { HttpExceptionFilter } from './core/filters/http.filter';
+import { useContainer } from 'class-validator';
 // import { ResponseInterceptor } from './serializer/response.interceptor';
 
-async function bootstrap() {
+const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
+  const configService: ConfigService = app.get(ConfigService);
 
-  app.useGlobalInterceptors(new ResponseInterceptor());
+  // useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+  // app.useGlobalInterceptors(new ResponseInterceptor());
   // app.useGlobalInterceptors(new SerializeResourceInterceptor());
 
-  // app.useGlobalFilters(new HttpExceptionFilter());
   // app.useGlobalFilters(new TypeOrmExceptionFilter());
+  // app.useGlobalFilters(new HttpExceptionFilter());
 
-  await app.listen(3000);
-}
+  await app.listen(configService.get('app.port'));
+};
+
 bootstrap();

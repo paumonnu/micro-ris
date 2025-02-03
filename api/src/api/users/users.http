@@ -1,10 +1,11 @@
 ### GET
-GET {{host}}/resources/users?take=2&sort=createdAt
+# GET {{host}}/resources/users?id=8446e447-f795-49c7-85d2-27741d744237&limit=1&sort=createdAt&include=role.permissions
+GET {{host}}/resources/users?limit=2&email[lk]=pau%&include=role.permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-GET {{host}}/resources/users/6dc48d5d-899e-4dcd-9142-190a6ed3a5d1
+GET {{host}}/resources/users/8446e447-f795-49c7-85d2-27741d744237?include=role.permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -14,20 +15,20 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "email": "12345678@fasf.com",
-  "password": "gkjvsdhgsd"
+  "email": "1234567d8@fasf.com"
 }
 
 ### UPDATE
-PATCH {{host}}/resources/users/6dc48d5d-899e-4dcd-9142-190a6ed3a5d1
+PATCH {{host}}/resources/users/8446e447-f795-49c7-85d2-27741d744237
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
+  "email": 12345,
   "password": "6Mahoney9!"
 }
 
 ### DELETE
-DELETE {{host}}/resources/users/6dc48d5d-899e-4dcd-9142-190a6ed3a5d1
+DELETE {{host}}/resources/users/8446e447-f795-49c7-85d2-27741d744237
 Content-Type: application/json
 Authorization: Bearer {{token}}

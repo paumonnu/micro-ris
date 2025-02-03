@@ -1,17 +1,14 @@
-import {
-  Module,
-  UnprocessableEntityException,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_INTERCEPTOR, APP_PIPE, RouterModule } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR, RouterModule } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ApiModule } from './api/api.module';
-import { SerializerModule } from './serializer/serializer.module';
 import configuration from './config/configuration';
 import routes from './config/routes.config';
-import { SerializeInterceptor } from './serializer/serialize.interceptor';
+import { ResponseInterceptor } from './core/serializer/response.interceptor';
+import { ApiModule } from './api/api.module';
+import { AuthGuard } from './api/auth/auth.guard';
+import { PermissionsGuard } from './api/auth/permission.guard';
 
 @Module({
   imports: [
@@ -27,31 +24,42 @@ import { SerializeInterceptor } from './serializer/serialize.interceptor';
       inject: [ConfigService],
     }),
     ApiModule,
-    SerializerModule,
   ],
   controllers: [],
   providers: [
     AppService,
     {
-      provide: APP_PIPE,
-      useValue: new ValidationPipe({
-        whitelist: true,
-        transform: true,
-        exceptionFactory: (errors) => {
-          return new UnprocessableEntityException({
-            statusCode: 422,
-            error: 'Unprocessable Entity',
-            message: errors.reduce(
-              (acc, e) => ({
-                ...acc,
-                [e.property]: Object.values(e.constraints),
-              }),
-              {},
-            ),
-          });
-        },
-      }),
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
     },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
+    },
+    // {
+    //   provide: APP_PIPE,
+    //   useValue: new ValidationPipe({
+    //     whitelist: true,
+    //     transform: true,
+    //     exceptionFactory: (errors) => {
+    //       return new UnprocessableEntityException({
+    //         statusCode: 422,
+    //         error: 'Unprocessable Entity',
+    //         message: errors.reduce(
+    //           (acc, e) => ({
+    //             ...acc,
+    //             [e.property]: Object.values(e.constraints),
+    //           }),
+    //           {},
+    //         ),
+    //       });
+    //     },
+    //   }),
+    // },
   ],
 })
 export class AppModule {}
