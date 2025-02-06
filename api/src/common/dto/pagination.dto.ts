@@ -1,8 +1,8 @@
 import { Expose, Type } from 'class-transformer';
 
-export interface PageMetaDtoParameters {
+export interface PageMetaParameters {
   page: number;
-  take: number;
+  limit: number;
   count: number;
 }
 
@@ -11,7 +11,7 @@ export class PaginationMeta {
   page: number;
 
   @Expose()
-  take: number;
+  limit: number;
 
   @Expose()
   count: number;
@@ -25,11 +25,11 @@ export class PaginationMeta {
   @Expose()
   hasNextPage: boolean;
 
-  constructor({ page, take, count }: PageMetaDtoParameters) {
+  constructor({ page, limit, count }: PageMetaParameters) {
     this.page = page;
-    this.take = take;
+    this.limit = limit;
     this.count = count;
-    this.pageCount = Math.ceil(this.count / this.take);
+    this.pageCount = Math.ceil(this.count / this.limit);
     this.hasPreviousPage = this.page > 1;
     this.hasNextPage = this.page < this.pageCount;
   }
@@ -43,7 +43,7 @@ export class Page<T> {
   @Type(() => PaginationMeta)
   meta: PaginationMeta;
 
-  constructor(data: T[], meta: PageMetaDtoParameters) {
+  constructor(data: T[], meta: PageMetaParameters) {
     this.data = data;
     this.meta = new PaginationMeta(meta);
   }

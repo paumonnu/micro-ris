@@ -2,7 +2,6 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
-  UnprocessableEntityException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../users/entities/user.entity';
@@ -10,7 +9,6 @@ import { Repository } from 'typeorm';
 import { compareHash } from '@/src/common/utils/auth';
 import { JwtService } from '@nestjs/jwt';
 import { AuthTokenDto } from './dto/auth-token.dto';
-import { Console } from 'console';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -62,9 +60,9 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<User> {
     // Check user exists
     const user = await this.userRepository.findOneBy({ email: email });
-    console.log(email, password);
+
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new UnauthorizedException('User not found');
     }
 
     // Check password
@@ -86,12 +84,12 @@ export class AuthService {
     }
   }
 
-  async generateAccessToken(user: User): Promise<string> {
+  private async generateAccessToken(user: User): Promise<string> {
     const payload = { sub: user.id };
     return await this.jwtService.signAsync(payload);
   }
 
-  async generateRefreshToken(user: User): Promise<string> {
+  private async generateRefreshToken(user: User): Promise<string> {
     const payload = { sub: user.id };
     return await this.jwtService.signAsync(payload, {
       expiresIn: this.configService.get('auth.jwtRefreshExpiresIn'),

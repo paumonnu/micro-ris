@@ -9,8 +9,8 @@ const dataSourceOptions = {
   ...{
     seeds: ['**/*.seeder.ts'],
     factories: ['**/*.factory.ts'],
-    entities: ['**/resources/**/*.entity.ts'],
-    subscribers: ['**/resources/**/*.subscriber.ts'],
+    entities: ['**/api/**/*.entity.ts'],
+    subscribers: ['**/api/**/*.subscriber.ts'],
   },
 };
 

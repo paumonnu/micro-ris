@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
+@Global()
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
@@ -22,7 +23,6 @@ import { ConfigService } from '@nestjs/config';
   ],
   controllers: [AuthController],
   providers: [AuthService],
-  exports: [AuthService],
+  exports: [AuthService, TypeOrmModule.forFeature([User])],
 })
-@Global()
 export class AuthModule {}

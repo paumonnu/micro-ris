@@ -10,17 +10,31 @@ import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { AuthInfo } from './dto/auth-info.dto';
+import { Secured } from './secured.decorator';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     @InjectRepository(User)
-    protected readonly usersRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>,
+    private readonly reflector: Reflector,
     private readonly authService: AuthService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
+
+    // Check Secured decorator
+    const securedHandler = this.reflector.get(Secured, context.getHandler());
+    const securedClass = this.reflector.get(Secured, context.getClass());
+
+    if (!securedHandler && !securedClass) {
+      return true;
+    }
+
+    // take token from headers
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
@@ -29,28 +43,37 @@ export class AuthGuard implements CanActivate {
       );
     }
 
-    let user: User;
     let payload;
 
     try {
       payload = (await this.authService.validateToken(token)) as any;
-      user = await this.usersRepository.findOneByOrFail({
-        id: payload.sub,
-      });
     } catch (err) {
       throw new UnauthorizedException('Invalid access token');
     }
 
+    // Get authed user
+    const user = await this.usersRepository.findOne({
+      where: {
+        id: payload.sub,
+      },
+      relations: ['role.permissions', 'info'],
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid access token user');
+    }
+
+    // Check password changed after token issued
     const passwordChangedAt = new Date(user.passwordChangedAt).getTime();
     const tokenIat = payload.iat * 1000;
-
     if (passwordChangedAt > tokenIat) {
       throw new UnauthorizedException(
         'Access token is invalid, user password has been changed',
       );
     }
 
-    request['user'] = user;
+    // Set authed user into request
+    request['authInfo'] = new AuthInfo(user);
 
     return true;
   }

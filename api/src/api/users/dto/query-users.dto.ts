@@ -1,8 +1,8 @@
 import { IsArray, ValidateNested, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
-import { FilterField, QueryDto } from '@/src/common/dto/query.dto';
+import { FilterField, QueryManyDto } from '@/src/common/dto/query.dto';
 
-export class QueryUserDto extends QueryDto {
+export class QueryUserDto extends QueryManyDto {
   @IsOptional()
   @ValidateNested()
   @Type(() => FilterField)

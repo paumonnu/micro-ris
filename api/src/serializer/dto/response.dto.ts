@@ -1,17 +1,17 @@
 import { Expose, Transform } from 'class-transformer';
 import { format } from 'date-fns';
-import { PaginationMetaDto } from './pagination.dto';
-import { ResourceDto } from './resource.dto';
+import { Resource } from './resource.dto';
 import { isArray } from 'class-validator';
+import { PaginationMeta } from '@/src/common/dto/pagination.dto';
 
 interface ApiResponseParams {
   status: number;
 }
 
 interface ResourceResponseParams extends ApiResponseParams {
-  data: ResourceDto | ResourceDto[];
-  includes?: ResourceDto[];
-  pagination?: PaginationMetaDto;
+  data: Resource | Resource[];
+  includes?: Resource[];
+  pagination?: PaginationMeta;
 }
 
 interface ErrorResponseParams extends ApiResponseParams {
@@ -60,11 +60,11 @@ export class SuccessResponseDto extends ApiResponseDto {
   }
 
   @Expose()
-  data: ResourceDto | ResourceDto[];
+  data: Resource | Resource[];
 
   @Expose()
-  includes?: ResourceDto[];
+  includes?: Resource[];
 
   @Expose()
-  pagination?: PaginationMetaDto;
+  pagination?: PaginationMeta;
 }

@@ -1,7 +1,8 @@
-import { Exclude, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import { BaseEntity } from '@/src/common/entities/base.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
+import { Permission } from '../../permissions/entities/permission.entity';
 
 @Entity()
 export class Role extends BaseEntity {
@@ -15,4 +16,9 @@ export class Role extends BaseEntity {
   @OneToMany(() => User, (user) => user.role)
   @Expose()
   users: User[];
+
+  @ManyToMany(() => Permission, (permission: Permission) => permission.roles)
+  @JoinTable()
+  @Expose()
+  permissions: Permission[];
 }

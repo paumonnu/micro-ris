@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { Transform, Type } from 'class-transformer';
 import {
   IsArray,
@@ -50,27 +49,12 @@ export class FilterField {
   in: string;
 }
 
-export class QueryDto {
+export class QueryOneDto {
   @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  id: string;
+  include: string;
+}
 
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  createdAt: string;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  updatedAt: string;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FilterField)
-  deletedAt: string;
-
+export class QueryManyDto {
   @IsInt()
   @Min(1)
   @Transform(({ value }) => parseInt(value))
@@ -78,23 +62,13 @@ export class QueryDto {
 
   @IsInt()
   @Min(1)
-  @Max(100)
+  @Max(250)
   @Transform(({ value }) => parseInt(value))
-  take: number = 25;
+  limit: number = 25;
 
-  @IsArray()
   @IsOptional()
-  @IsString({ each: true })
-  @Transform(({ value }) => {
-    return (value as string).split(',');
-  })
-  sort: string[] = ['id'];
+  sort: string = '-id';
 
-  @IsArray()
   @IsOptional()
-  @IsString({ each: true })
-  @Transform(({ value }) => {
-    return (value as string).split(',');
-  })
-  fields: string[] = [];
+  include: string;
 }
