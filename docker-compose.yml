@@ -15,6 +15,15 @@ services:
   #     - 8880:8880
   #     - 9229:9229
   #   command: "npm run start:debug"
+  maildev:
+    image: maildev/maildev
+    restart: always
+    ports:
+      - 8889:8889
+      - 8882:8882
+    environment:
+      MAILDEV_WEB_PORT: 8889
+      MAILDEV_SMTP_PORT: 8882
 
   db:
     image: postgres:16.2

@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { BaseEntity } from '@/src/common/entities/base.entity';
+import { BaseEntity } from '@/src/common/base.entity';
 import { Column, Entity, ManyToMany } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 

@@ -1,7 +1,6 @@
 import {
   CanActivate,
   ExecutionContext,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -11,14 +10,16 @@ import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthInfo } from './dto/auth-info.dto';
-import { Secured } from './secured.decorator';
+import { AuthToken } from './auth-token.decorator';
 import { Reflector } from '@nestjs/core';
+import { ClsService } from 'nestjs-cls';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthTokenGuard implements CanActivate {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly cls: ClsService,
     private readonly reflector: Reflector,
     private readonly authService: AuthService,
   ) {}
@@ -27,8 +28,8 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     // Check Secured decorator
-    const securedHandler = this.reflector.get(Secured, context.getHandler());
-    const securedClass = this.reflector.get(Secured, context.getClass());
+    const securedHandler = this.reflector.get(AuthToken, context.getHandler());
+    const securedClass = this.reflector.get(AuthToken, context.getClass());
 
     if (!securedHandler && !securedClass) {
       return true;
@@ -74,6 +75,7 @@ export class AuthGuard implements CanActivate {
 
     // Set authed user into request
     request['authInfo'] = new AuthInfo(user);
+    this.cls.set('authInfo', request['authInfo']);
 
     return true;
   }

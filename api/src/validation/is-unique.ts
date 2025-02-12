@@ -8,7 +8,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { EntityManager } from 'typeorm';
-import { BaseEntity } from '../common/entities/base.entity';
+import { BaseEntity } from '../common/base.entity';
 
 export function IsUnique(
   entityClass: ClassConstructor<BaseEntity>,
@@ -30,6 +30,7 @@ export function IsUnique(
 @Injectable()
 export class IsUniqueValidator implements ValidatorConstraintInterface {
   constructor(private readonly entityManager: EntityManager) {}
+
   async validate(value: any, args?: ValidationArguments): Promise<boolean> {
     const [entityClass, uniqueField] = args?.constraints as string[];
     const dataExist = await this.entityManager

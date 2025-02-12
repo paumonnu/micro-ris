@@ -1,5 +1,5 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { BaseEntity } from '@/src/common/entities/base.entity';
+import { BaseEntity } from '@/src/common/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { UserInfo } from './user-info.entity';
@@ -21,20 +21,24 @@ export class User extends BaseEntity {
   @Exclude()
   passwordChangedAt: Date;
 
+  @Column({ type: 'timestamptz', nullable: true })
+  @Exclude()
+  disabledAt: Date;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  @Exclude()
+  verifiedAt: Date = null;
+
   @ManyToOne(() => Role, (role) => role.users)
   @Type(() => Role)
   @Expose()
   role: Role;
 
-  @OneToOne(() => UserInfo, (info) => info.user)
+  @OneToOne(() => UserInfo, (info) => info.user, { eager: true })
   @JoinColumn()
   @Type(() => UserInfo)
   @Expose()
   info: UserInfo;
-
-  @Column({ type: 'timestamptz', nullable: true })
-  @Exclude()
-  disabledAt: Date;
 
   constructor() {
     super();

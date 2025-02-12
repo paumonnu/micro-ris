@@ -2,7 +2,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { Column, Entity, OneToOne } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { User } from './user.entity';
-import { BaseEntity } from '@/src/common/entities/base.entity';
+import { BaseEntity } from '@/src/common/base.entity';
 
 @Entity()
 export class UserInfo extends BaseEntity {

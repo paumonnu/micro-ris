@@ -28,8 +28,8 @@
       "version": "v1"
     },
     "local": {
-      "host": "http://localhost:3000/api",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NjNjODBmYS05Yzg1LTQyY2MtODZhMi0zZDcxNzdjMGQ4MTkiLCJpYXQiOjE3Mzg4MzcyMzgsImV4cCI6MTczOTQ0MjAzOH0.e-MNfo8mKsh2Uz4gsuBIMeZ_2R5FGAQdsvIp1g3aGTg",
+      "apiUrl": "http://localhost:3000/api",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NzkzOTI3Zi05NTMwLTQ0M2UtODk5ZC05ZTQwMjI3MTBmZmQiLCJpYXQiOjE3MzkzNjU3ODIsImV4cCI6MTczOTk3MDU4Mn0.MDD2HCJ27ADakb2phdeKCeOAHwdaH5pcvMIjyYnnics",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZGM0OGQ1ZC04OTllLTRkY2QtOTE0Mi0xOTBhNmVkM2E1ZDEiLCJpYXQiOjE3MjcxNjg4MjEsImV4cCI6MTcyODQ2NDgyMX0.LHWPgTn6nPFyAVOTUq7QvNRTMrnXqKOob4ZYEi9Shs8"
     },
     "production": {

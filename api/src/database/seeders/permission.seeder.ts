@@ -24,5 +24,9 @@ export default class PermissionSeeder implements Seeder {
     await permissionFactory.save({
       name: 'resources.users.delete',
     });
+
+    await permissionFactory.save({
+      name: 'resources.users.test',
+    });
   }
 }

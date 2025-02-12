@@ -1,20 +1,9 @@
 import { Type } from '@nestjs/common';
-import { BaseEntity } from './entities/base.entity';
-import { Between, DeepPartial, In, QueryBuilder, Repository } from 'typeorm';
-import { validate } from 'uuid';
-import { QueryManyDto, QueryOneDto } from './dto/query.dto';
-import {
-  Equal,
-  LessThanOrEqual,
-  MoreThanOrEqual,
-  LessThan,
-  MoreThan,
-  Not,
-  Like,
-  And,
-} from 'typeorm';
-import { Page, PaginationMeta } from './dto/pagination.dto';
-import { queryManyBuilder, queryOneBuilder } from './utils/query';
+import { BaseEntity } from '../common/base.entity';
+import { DeepPartial, Repository } from 'typeorm';
+import { QueryManyDto, QueryOneDto } from '../common/dto/query.dto';
+import { Page } from '../common/dto/pagination.dto';
+import { queryManyBuilder, queryOneBuilder } from '../utils/query';
 
 export interface ICrudService<
   EntityType extends BaseEntity,

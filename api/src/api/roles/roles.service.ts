@@ -5,7 +5,7 @@ import { Role } from './entities/role.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QueryRoleDto } from './dto/query-roles.dto';
-import { CrudServiceFactory } from '@/src/common/crud.service';
+import { CrudServiceFactory } from '@/src/crud/crud.service';
 
 @Injectable()
 export class RolesService extends CrudServiceFactory<

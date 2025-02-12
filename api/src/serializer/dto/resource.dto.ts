@@ -1,8 +1,4 @@
-import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { BaseEntityDto } from '../../common/dto/entity.dto';
-import { DataSource } from 'typeorm';
-import { getRepository } from 'typeorm';
-import { BaseEntity } from '@/src/common/entities/base.entity';
+import { Expose, Transform } from 'class-transformer';
 
 export interface ResourceRelationship {
   id: string;

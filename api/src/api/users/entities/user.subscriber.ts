@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
-import { hashPassword } from '@/src/common/utils/auth';
+import { hashPassword } from '@/src/utils/auth';
 
 @EventSubscriber()
 export class UserSubscriber implements EntitySubscriberInterface<User> {

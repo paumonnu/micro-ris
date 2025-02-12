@@ -9,22 +9,19 @@ import {
   UsePipes,
   Query,
   HttpCode,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ICrudService } from './crud.service';
-import { BaseEntity } from './entities/base.entity';
-import { GetResourceByIdDto } from './dto/uuid.dto';
-import { Page } from './dto/pagination.dto';
-import { AuthGuard } from '@/src/api/auth/auth.guard';
+import { GetResourceByIdDto } from '../common/dto/uuid.dto';
+import { Page } from '../common/dto/pagination.dto';
 import {
   SerializeEntityInterceptor,
   SerializeEntityPageInterceptor,
 } from '../serializer/serialize.interceptor';
-import { QueryOneDto } from './dto/query.dto';
-import { CrudValidationPipe } from '@/src/validation/crud-validation.pipe';
-import { Permissions } from '../api/auth/permissions.decorator';
-import { Secured } from '../api/auth/secured.decorator';
+import { QueryOneDto } from '../common/dto/query.dto';
+import { ICrudService } from './crud.service';
+import { BaseEntity } from '../common/base.entity';
+import { Auth } from '../api/auth/auth.decorator';
+import { CrudValidationPipe } from '../validation/crud-validation.pipe';
 
 export interface ICrudController<
   EntityType extends BaseEntity,
@@ -44,6 +41,7 @@ export interface ICrudController<
 }
 
 export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
+  path: string,
   entityDto: Type<T>,
   createDto: Type<C>,
   updateDto: Type<U>,
@@ -52,28 +50,31 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
   const createPipe = new CrudValidationPipe({
     whitelist: true,
     transform: true,
+    stopAtFirstError: false,
     body: createDto,
   });
 
   const updatePipe = new CrudValidationPipe({
     whitelist: true,
     transform: true,
+    stopAtFirstError: false,
     body: updateDto,
   });
 
   const queryPipe = new CrudValidationPipe({
     whitelist: true,
     transform: true,
+    stopAtFirstError: false,
     query: queryDto,
   });
 
-  @Secured()
   class CrudController<T extends BaseEntity, C, U, Q>
     implements ICrudController<T, C, U, Q>
   {
     protected service: ICrudService<T, C, U, Q>;
 
-    @Post()
+    @Post(`api/resources/${path}`)
+    @Auth(`resources.${path}.create`)
     @HttpCode(201)
     @UsePipes(createPipe)
     @UseInterceptors(SerializeEntityInterceptor)
@@ -81,7 +82,8 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
       return await this.service.create(body);
     }
 
-    @Get(':id')
+    @Get(`api/resources/${path}/:id`)
+    @Auth(`resources.${path}.read`)
     @UseInterceptors(SerializeEntityInterceptor)
     async getOne(
       @Param() params: GetResourceByIdDto,
@@ -90,20 +92,16 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
       return await this.service.getOne(params.id, query);
     }
 
-    @Get()
+    @Get(`api/resources/${path}`)
+    @Auth(`resources.${path}.read`)
     @UsePipes(queryPipe)
     @UseInterceptors(SerializeEntityPageInterceptor)
     async get(@Query() query: Q): Promise<Page<T>> {
       return await this.service.get(query);
     }
 
-    @Delete(':id')
-    @UseInterceptors(SerializeEntityInterceptor)
-    async delete(@Param() params: GetResourceByIdDto): Promise<T> {
-      return this.service.delete(params.id);
-    }
-
-    @Patch(':id')
+    @Patch(`api/resources/${path}/:id`)
+    @Auth(`resources.${path}.update`)
     @UsePipes(updatePipe)
     @UseInterceptors(SerializeEntityInterceptor)
     async update(
@@ -111,7 +109,13 @@ export function CRUDControllerFactory<T extends BaseEntity, C, U, Q>(
       @Body() body: U,
     ): Promise<T> {
       return this.service.update(params.id, body);
-      // return new ResourceResponseDto<T>(result);
+    }
+
+    @Delete(`api/resources/${path}/:id`)
+    @Auth(`resources.${path}.delete`)
+    @UseInterceptors(SerializeEntityInterceptor)
+    async delete(@Param() params: GetResourceByIdDto): Promise<T> {
+      return this.service.delete(params.id);
     }
   }
 

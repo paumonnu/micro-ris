@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Page } from '../common/dto/pagination.dto';
-import { BaseEntity } from '../common/entities/base.entity';
+import { BaseEntity } from '../common/base.entity';
 import { SerializerService } from '@/src/serializer/serializer.service';
 import { Resource } from './dto/resource.dto';
 

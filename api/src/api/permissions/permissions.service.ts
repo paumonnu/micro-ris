@@ -4,7 +4,7 @@ import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { Permission } from './entities/permission.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CrudServiceFactory } from '@/src/common/crud.service';
+import { CrudServiceFactory } from '@/src/crud/crud.service';
 import { QueryPermissiosnDto } from './dto/query-permissions.dto';
 
 @Injectable()

@@ -13,7 +13,7 @@ import {
   Not,
 } from 'typeorm';
 
-import { QueryManyDto, QueryOneDto } from '../dto/query.dto';
+import { QueryManyDto, QueryOneDto } from '../common/dto/query.dto';
 
 export const validQueryOperators = {
   eq: Equal,

@@ -1,33 +1,33 @@
 ### GET
-GET {{host}}/resources/users?limit=3&sort=createdAt&include=role.permissions
+GET {{apiUrl}}/resources/users?limit=3&sort=createdAt&include=role.permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-GET {{host}}/resources/users/463c80fa-9c85-42cc-86a2-3d7177c0d819?include=role.permissions,info
+GET {{apiUrl}}/resources/users/8b0ebe5d-f496-44b7-9790-1951e6a7df21?include=role.permissions,info
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE
-POST {{host}}/resources/users
+POST {{apiUrl}}/resources/users
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "email": "fsafafasf@fafa.com",
-  "password": "1234567"
+  "email": "test@test.com",
+  "password": "123456"
 }
 
 ### UPDATE
-PATCH {{host}}/resources/users/463c80fa-9c85-42cc-86a2-3d7177c0d819
+PATCH {{apiUrl}}/resources/users/8b0ebe5d-f496-44b7-9790-1951e6a7df21
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "password": "6Mahoney9!"
+  "email": "testaaa354f@test.coms"
 }
 
 ### DELETE
-DELETE {{host}}/resources/users/463c80fa-9c85-42cc-86a2-3d7177c0d819
+DELETE {{apiUrl}}/resources/users/8b0ebe5d-f496-44b7-9790-1951e6a7df21
 Content-Type: application/json
 Authorization: Bearer {{token}}

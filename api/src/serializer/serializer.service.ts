@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectEntityManager } from '@nestjs/typeorm';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { DataSource, EntityManager } from 'typeorm';
-import { BaseEntity } from '../common/entities/base.entity';
-import { Resource, ResourceRelationships } from './dto/resource.dto';
+import { BaseEntity } from '../common/base.entity';
+import { Resource } from './dto/resource.dto';
 
 @Injectable()
 export class SerializerService {
@@ -63,7 +63,7 @@ export class SerializerService {
       } else if (relationship instanceof BaseEntity) {
         serializedRelationship = this.serializeEntity(relationship);
       } else {
-        return;
+        return acc;
       }
 
       return { ...acc, [key]: serializedRelationship };

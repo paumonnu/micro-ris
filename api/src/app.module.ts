@@ -10,25 +10,37 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ApiModule } from './api/api.module';
 import configuration from './config/configuration';
 import routes from './config/routes.config';
-import { SerializeInterceptor } from './serializer/serialize.interceptor';
 import { ResponseInterceptor } from './serializer/response.interceptor';
-import { AuthGuard } from './api/auth/auth.guard';
-import { PermissionsGuard } from './api/auth/permission.guard';
+import { ClsModule } from 'nestjs-cls';
+import { ValidationPipe } from './validation/validation.pipe';
+import { MailModule } from './mail/mail.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
-    RouterModule.register(routes),
+    // RouterModule.register(routes),
+    ClsModule.forRoot({
+      global: true,
+      middleware: { mount: true },
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env'],
       load: configuration,
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => config.get('database'),
       inject: [ConfigService],
     }),
     ApiModule,
+    MailModule,
   ],
   controllers: [],
   providers: [
@@ -37,33 +49,9 @@ import { PermissionsGuard } from './api/auth/permission.guard';
       useClass: ResponseInterceptor,
     },
     {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
     },
-    {
-      provide: APP_GUARD,
-      useClass: PermissionsGuard,
-    },
-    // {
-    //   provide: APP_PIPE,
-    //   useValue: new ValidationPipe({
-    //     whitelist: true,
-    //     transform: true,
-    //     exceptionFactory: (errors) => {
-    //       return new UnprocessableEntityException({
-    //         statusCode: 422,
-    //         error: 'Unprocessable Entity',
-    //         message: errors.reduce(
-    //           (acc, e) => ({
-    //             ...acc,
-    //             [e.property]: Object.values(e.constraints),
-    //           }),
-    //           {},
-    //         ),
-    //       });
-    //     },
-    //   }),
-    // },
   ],
 })
 export class AppModule {}

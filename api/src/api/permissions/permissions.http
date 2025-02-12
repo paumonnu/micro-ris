@@ -1,16 +1,16 @@
 ### GET
-# GET {{host}}/resources/permissions?id=2ff3e024-9d34-4a9d-a6af-ff5008db3850&limit=1&sort=createdAt&include=role.permissions
-GET {{host}}/resources/permissions?include=roles
+# GET {{apiUrl}}/resources/permissions?id=2ff3e024-9d34-4a9d-a6af-ff5008db3850&limit=1&sort=createdAt&include=role.permissions
+GET {{apiUrl}}/resources/permissions?include=roles
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-GET {{host}}/resources/permissions/2ff3e024-9d34-4a9d-a6af-ff5008db3850?include=roles
+GET {{apiUrl}}/resources/permissions/2ff3e024-9d34-4a9d-a6af-ff5008db3850?include=roles
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE
-POST {{host}}/resources/permissions
+POST {{apiUrl}}/resources/permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -20,7 +20,7 @@ Authorization: Bearer {{token}}
 }
 
 ### UPDATE
-PATCH {{host}}/resources/permissions/2ff3e024-9d34-4a9d-a6af-ff5008db3850
+PATCH {{apiUrl}}/resources/permissions/2ff3e024-9d34-4a9d-a6af-ff5008db3850
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -29,6 +29,6 @@ Authorization: Bearer {{token}}
 }
 
 ### DELETE
-DELETE {{host}}/resources/permissions/2ff3e024-9d34-4a9d-a6af-ff5008db3850
+DELETE {{apiUrl}}/resources/permissions/2ff3e024-9d34-4a9d-a6af-ff5008db3850
 Content-Type: application/json
 Authorization: Bearer {{token}}

@@ -5,12 +5,14 @@ import { RolesModule } from './roles/roles.module';
 import { SerializerModule } from '../serializer/serializer.module';
 import { SerializeInterceptor } from '../serializer/serialize.interceptor';
 import { ValidationModule } from '../validation/validation.module';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
     RolesModule,
+    PermissionsModule,
     SerializerModule,
     ValidationModule,
   ],

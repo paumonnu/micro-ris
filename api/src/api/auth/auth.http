@@ -1,14 +1,14 @@
 ### LOGIN
-POST http://localhost:3000/api/auth/login
+POST {{apiUrl}}/auth/login
 Content-Type: application/json
 
 {
   "email": "pau@gmail.com",
-  "password": "6Mahoney9!"
+  "password": "6Mahoney9!!"
 }
 
 ### REFRESH 
-POST http://localhost:3000/api/auth/refresh
+POST {{apiUrl}}/auth/refresh
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -16,7 +16,44 @@ Authorization: Bearer {{token}}
   "refreshToken": "{{refreshToken}}"
 }
 
+### REGISTER
+POST {{apiUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "pau27@gmail.com",
+  "password": "6Mahoney9!",
+  "confirmPassword": "6Mahoney9!"
+}
+
+### REMEMBER REGISTER
+POST {{apiUrl}}/auth/register/remember
+Content-Type: application/json
+
+{
+  "email": "pau27@gmail.com"
+}
+
+### REMEMBER PASSWORD
+POST {{apiUrl}}/auth/password/remember
+Content-Type: application/json
+
+{
+  "email": "pau@gmail.com"
+}
+
+### RESET PASSWORD
+POST {{apiUrl}}/auth/password/reset
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NzkzOTI3Zi05NTMwLTQ0M2UtODk5ZC05ZTQwMjI3MTBmZmQiLCJpYXQiOjE3MzkzNjU2ODgsImV4cCI6MTczOTM2OTI4OH0.i6dcos4Ckk75yvWa0cbFRX-NJGCYwE5dd1QBHpiNjAA",
+  "password": "6Mahoney9!",
+  "passwordConfirm": "6Mahoney9!"
+}
+
+
 ### ME 
-GET http://localhost:3000/api/auth/me
+GET {{apiUrl}}/auth/me
 Content-Type: application/json
 Authorization: Bearer {{token}}

@@ -6,13 +6,14 @@ import {
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class PermissionsGuard {
   constructor(
     // @InjectRepository(User)
     // protected readonly usersRepository: Repository<User>,
-    // private readonly authService: AuthService,
+    private readonly authService: AuthService,
     private readonly reflector: Reflector,
   ) {}
 
@@ -31,9 +32,8 @@ export class PermissionsGuard {
 
     // Check logged in user has permissions
     const { authInfo } = request;
-
-    const isAllowed = this.matchPermissions(
-      authInfo.user.role.permissions,
+    const isAllowed = await this.authService.hasPermissions(
+      authInfo.permissions,
       permissions,
     );
 
@@ -44,18 +44,5 @@ export class PermissionsGuard {
     }
 
     return true;
-  }
-
-  private matchPermissions(
-    userPermissions: Permission[],
-    routePermissions: string[],
-  ): boolean {
-    const found = routePermissions.filter((permission) => {
-      return !userPermissions.find(
-        (userPermission) => permission === userPermission.name,
-      );
-    });
-
-    return !found.length;
   }
 }
