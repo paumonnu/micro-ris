@@ -32,6 +32,7 @@ export class PermissionsGuard {
 
     // Check logged in user has permissions
     const { authInfo } = request;
+
     const isAllowed = await this.authService.hasPermissions(
       authInfo.permissions,
       permissions,

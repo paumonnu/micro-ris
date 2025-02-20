@@ -158,7 +158,6 @@ export class AuthService {
 
     const passwordChangedAt = new Date(user.passwordChangedAt).getTime();
     const tokenIat = payload.iat * 1000;
-    console.log(passwordChangedAt, tokenIat);
 
     if (passwordChangedAt && passwordChangedAt > tokenIat) {
       throw new UnauthorizedException('Reset password token is invalid');

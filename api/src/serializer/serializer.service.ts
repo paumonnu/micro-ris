@@ -19,6 +19,10 @@ export class SerializerService {
   }
 
   public serializeEntity(entity: BaseEntity): Resource {
+    if (!entity) {
+      return null;
+    }
+
     // Class transform the entity
     const transformedEntity = plainToInstance(
       entity.constructor as any,

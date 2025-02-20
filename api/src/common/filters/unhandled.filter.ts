@@ -10,12 +10,12 @@ export class UnhandledExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    console.log(exception);
-
     const status = 500;
     const message = exception.message;
 
     const responseObj = new ErrorResponseDto({ status, message });
+
+    console.error(exception);
 
     response.status(status).json(instanceToPlain(responseObj));
   }

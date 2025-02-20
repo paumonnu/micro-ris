@@ -14,14 +14,14 @@ export function IsValidPassword(validationOptions?: ValidationOptions) {
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: IsUserAllowedValidator,
+      validator: IsValidPasswordValidator,
     });
   };
 }
 
 @ValidatorConstraint({ name: 'IsValidPassword' })
 @Injectable()
-export class IsUserAllowedValidator implements ValidatorConstraintInterface {
+export class IsValidPasswordValidator implements ValidatorConstraintInterface {
   constructor() {}
 
   async validate(value: string, args?: ValidationArguments): Promise<boolean> {

@@ -1,25 +1,25 @@
 ### GET
-GET {{apiUrl}}/resources/users?limit=3&sort=createdAt&include=role.permissions
+GET {{apiUrl}}/resources/test?include=role.permissions,info
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-GET {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c?include=role.permissions,info
+GET {{apiUrl}}/resources/test/fe84fe43-7b96-4b87-804b-d3f0c8219bcb?include=role.permissions,info
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE
-POST {{apiUrl}}/resources/users
+POST {{apiUrl}}/resources/test
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "email": "test@test.com",
+  "email": "testfsfasfa@test.com",
   "password": "123456"
 }
 
 ### UPDATE
-PATCH {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c
+PATCH {{apiUrl}}/resources/test/fe84fe43-7b96-4b87-804b-d3f0c8219bcb
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -28,12 +28,11 @@ Authorization: Bearer {{token}}
 }
 
 ### DELETE
-DELETE {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c
+DELETE {{apiUrl}}/resources/test/fe84fe43-7b96-4b87-804b-d3f0c8219bcb
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-
 ### GET RELATIONSHIP
-GET {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c/relationships/info
+GET {{apiUrl}}/resources/test/fe84fe43-7b96-4b87-804b-d3f0c8219bcb/relations/info
 Content-Type: application/json
 Authorization: Bearer {{token}}

@@ -1,6 +1,22 @@
-import { IsUUID } from 'class-validator';
+import { IsString, IsUUID } from 'class-validator';
 
-export class GetResourceByIdDto {
+export class GetOneDto {
   @IsUUID()
   id: string;
+}
+
+export class GetRelationshipDto {
+  @IsUUID()
+  id: string;
+
+  @IsString()
+  relation: string;
+}
+
+export class GetOneRelationshipDto {
+  @IsUUID()
+  id: string;
+
+  @IsString()
+  relationship: string;
 }

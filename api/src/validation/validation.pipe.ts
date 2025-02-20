@@ -17,8 +17,6 @@ function exceptionFactory(errors: ValidationError[]) {
     return [...acc, ...constraintsErrors];
   }, []);
 
-  console.log(errorMessage);
-
   return new ValidationException(errorMessage);
 }
 

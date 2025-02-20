@@ -16,6 +16,11 @@ export interface ICrudService<
   getOne(id: string, queryDto: QueryOneDto): Promise<EntityType>;
   update(id: string, updateDto: UpdateDto): Promise<EntityType>;
   delete(id: string): Promise<EntityType>;
+  getRelationship(
+    ìd: any,
+    relation: string,
+    queryDto?: QueryManyDto,
+  ): Promise<Page<Type>>;
 }
 
 export function CrudServiceFactory<
@@ -53,7 +58,7 @@ export function CrudServiceFactory<
       return pageResult;
     }
 
-    async getOne(id: any, queryDto: QueryOneDto): Promise<T> {
+    async getOne(id: any, queryDto?: QueryOneDto): Promise<T> {
       const queryOptions = queryOneBuilder(id, queryDto);
 
       const entity = await this.repository.findOneOrFail(queryOptions);
@@ -69,22 +74,20 @@ export function CrudServiceFactory<
       );
 
       return updateResult;
-
-      // const updatedEntity = await this.repository.findOneOrFail({
-      //   where: { id: entity.id as any },
-      // });
-
-      // const { id: resourceId, type, ...attributes } = updatedEntity;
-      // return new ResourceDto<T>(resourceId, type, attributes);
     }
 
     async delete(id: any): Promise<T> {
       const entity = await this.repository.findOneOrFail({ where: { id } });
 
       return this.repository.remove(entity);
+    }
 
-      // const { id: resourceId, type, ...attributes } = entity;
-      // return new ResourceDto<T>(resourceId, type, attributes);
+    async getRelationship(
+      id: any,
+      relation: string,
+      query?: Q,
+    ): Promise<Page<Type>> {
+      return null;
     }
   }
 

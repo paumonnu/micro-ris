@@ -91,7 +91,7 @@ function parseIncludes(includes: string): string[] {
 
 export function queryOneBuilder(
   id: string,
-  queryDto: QueryOneDto,
+  queryDto?: QueryOneDto,
 ): FindOneOptions {
   const queryOptions: FindOneOptions = {};
 
@@ -101,7 +101,7 @@ export function queryOneBuilder(
   // }
 
   // Include relations
-  if (queryDto.include) {
+  if (queryDto && queryDto.include) {
     queryOptions.relations = parseIncludes(queryDto.include);
   }
 
