@@ -9,9 +9,9 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { instanceToPlain } from 'class-transformer';
-import { Page } from '../common/dto/pagination.dto';
+import { Page } from '../shared/dto/pagination.dto';
 import { ErrorResponseDto, SuccessResponseDto } from './dto/response.dto';
-import { Resource } from './dto/resource.dto';
+import { Resource, ResourceData } from './dto/resource.dto';
 import { SerializerService } from './serializer.service';
 
 @Injectable()
@@ -27,23 +27,26 @@ export class ResponseInterceptor implements NestInterceptor {
         const request = ctx.getRequest();
         const status = response.statusCode;
 
-        let includes = [];
-        if (data instanceof Resource) {
-          includes = this.serializerService.extractIncludes(data);
-        } else if (data instanceof Page) {
-          includes = this.serializerService.extractIncludes(data.data);
+        let responseData = data;
+        let responseIncludes;
+        let responsePagination;
+
+        if (data instanceof ResourceData) {
+          responseData = data.data;
+          responseIncludes = data.includes;
+          responsePagination = data.pagination;
         }
 
         const responseObj = new SuccessResponseDto({
           status,
-          data: data instanceof Page ? data.data : data,
-          pagination: data instanceof Page ? data.meta : undefined,
-          includes: includes.length ? includes : undefined,
+          data: responseData,
+          includes: responseIncludes,
+          pagination: responsePagination,
         });
 
         const responsePlain = instanceToPlain(responseObj, {
           excludeExtraneousValues: true,
-          exposeUnsetFields: false,
+          // exposeUnsetFields: false,
         });
 
         return responsePlain;

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectEntityManager } from '@nestjs/typeorm';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 import { DataSource, EntityManager } from 'typeorm';
-import { BaseEntity } from '../common/base.entity';
-import { Resource } from './dto/resource.dto';
+import { BaseEntity } from '../shared/base.entity';
+import { Resource, ResourceData } from './dto/resource.dto';
 
 @Injectable()
 export class SerializerService {
@@ -18,7 +18,7 @@ export class SerializerService {
     return instanceToPlain(data);
   }
 
-  public serializeEntity(entity: BaseEntity): Resource {
+  public serializeEntity(entity: BaseEntity): ResourceData {
     if (!entity) {
       return null;
     }
@@ -52,6 +52,7 @@ export class SerializerService {
     }, {});
 
     // Serialize relationships
+    const includes = [];
     const relationships = Object.keys(rawAttributes).reduce((acc, key) => {
       if (!relationKeys.includes(key)) {
         return acc;
@@ -60,12 +61,28 @@ export class SerializerService {
       const relationship = rawAttributes[key];
       let serializedRelationship;
       if (Array.isArray(relationship)) {
-        serializedRelationship = relationship.map((entity) => {
-          const serializedResource = this.serializeEntity(entity);
-          return serializedResource;
+        serializedRelationship = relationship.map((entity: BaseEntity) => {
+          const serializedData = this.serializeEntity(entity);
+
+          this.insertResourceIfNotExists(includes, [
+            serializedData.data as any,
+            ...serializedData.includes,
+          ]);
+
+          return { id: entity.id, type: entity.type };
         });
       } else if (relationship instanceof BaseEntity) {
-        serializedRelationship = this.serializeEntity(relationship);
+        serializedRelationship = {
+          id: relationship.id,
+          type: relationship.type,
+        };
+
+        const serializedData = this.serializeEntity(relationship);
+
+        this.insertResourceIfNotExists(includes, [
+          serializedData.data as any,
+          ...serializedData.includes,
+        ]);
       } else {
         return acc;
       }
@@ -82,15 +99,24 @@ export class SerializerService {
         : relationships,
     });
 
-    return resource;
-  }
-
-  public serializeEntityArray(entities: BaseEntity[]): Resource[] {
-    const resources = entities.map((entity) => {
-      return this.serializeEntity(entity);
+    const resourceData = new ResourceData({
+      data: resource,
+      // includes: includes.length ? includes : undefined,
+      includes: includes,
     });
 
-    return resources;
+    return resourceData;
+  }
+
+  public serializeEntityArray(entities: BaseEntity[]): ResourceData {
+    const includes = [];
+    const data = entities.map((entity) => {
+      const serializedData = this.serializeEntity(entity);
+      this.insertResourceIfNotExists(includes, serializedData.includes);
+      return serializedData.data;
+    });
+
+    return new ResourceData({ data, includes });
   }
 
   public extractIncludes(data: Resource | Resource[]): Resource[] {
@@ -124,13 +150,20 @@ export class SerializerService {
     return includes;
   }
 
-  private insertResourceIfNotExists(insertArr: Resource[], resource: Resource) {
-    const found = insertArr.find(
-      (elem) => elem.id === resource.id && elem.type === resource.type,
-    );
+  private insertResourceIfNotExists(
+    insertArr: Resource[],
+    resource: Resource | Resource[],
+  ) {
+    const resourceArr = Array.isArray(resource) ? resource : [resource];
 
-    if (!found) {
-      insertArr.push(resource);
-    }
+    resourceArr.map((res) => {
+      const found = insertArr.find(
+        (elem) => elem.id === res.id && elem.type === res.type,
+      );
+
+      if (!found) {
+        insertArr.push(res);
+      }
+    });
   }
 }

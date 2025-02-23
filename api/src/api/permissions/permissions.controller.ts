@@ -1,30 +1,49 @@
-import { Controller, UseGuards } from '@nestjs/common';
-import { PermissionsService } from './permissions.service';
-import { Permission } from './entities/permission.entity';
+import { Controller } from '@nestjs/common';
+import { Crud, CrudController } from '@dataui/crud';
+import { exceptionFactory } from '@/src/validation/validation-exception-factory';
+import { Auth } from '../auth/auth.decorator';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
-import { QueryPermissiosnDto } from './dto/query-permissions.dto';
-import { AuthTokenGuard } from '../auth/auth-token.guard';
-import { CRUDControllerFactory } from '@/src/crud/crud.controller';
-import { RelationshipsDto } from '@/src/common/dto/relationships.dto';
+import { PermissionsService } from './permissions.service';
+import { Permission } from './entities/permission.entity';
 
-@Controller()
-@UseGuards(AuthTokenGuard)
-export class PermissionsController extends CRUDControllerFactory<
-  Permission,
-  CreatePermissionDto,
-  UpdatePermissionDto,
-  QueryPermissiosnDto,
-  RelationshipsDto
->(
-  'permissions',
-  Permission,
-  CreatePermissionDto,
-  UpdatePermissionDto,
-  QueryPermissiosnDto,
-  RelationshipsDto,
-) {
-  constructor(private readonly service: PermissionsService) {
-    super(service);
-  }
+@Crud({
+  model: {
+    type: Permission,
+  },
+  params: {},
+  query: {
+    join: {},
+  },
+  validation: {
+    exceptionFactory: exceptionFactory,
+  },
+  dto: {
+    create: CreatePermissionDto,
+    update: UpdatePermissionDto,
+  },
+  routes: {
+    getManyBase: {
+      // decorators: [Auth('resources.permissions.read')],
+    },
+    getOneBase: {
+      // decorators: [Auth('resources.permissions.read')],
+    },
+    createManyBase: {
+      // decorators: [Auth('resources.permissions.create')],
+    },
+    createOneBase: {
+      // decorators: [Auth('resources.permissions.create')],
+    },
+    updateOneBase: {
+      // decorators: [Auth('resources.permissions.update')],
+    },
+    deleteOneBase: {
+      // decorators: [Auth('resources.permissions.delete')],
+    },
+  },
+})
+@Controller('permissions')
+export class PermissionsController implements CrudController<Permission> {
+  constructor(public service: PermissionsService) {}
 }

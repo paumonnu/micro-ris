@@ -6,25 +6,11 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Page } from '../common/dto/pagination.dto';
-import { BaseEntity } from '../common/base.entity';
+import { Page } from '../shared/dto/pagination.dto';
+import { BaseEntity } from '../shared/base.entity';
 import { SerializerService } from '@/src/serializer/serializer.service';
-import { Resource } from './dto/resource.dto';
-
-@Injectable()
-export class SerializeInterceptor implements NestInterceptor {
-  constructor(private serializerService: SerializerService) {}
-
-  intercept(context: ExecutionContext, handler: CallHandler): Observable<any> {
-    // run something before a request is handled by the request handler
-    return handler.handle().pipe(
-      map((data: any) => {
-        const serialized = this.serializerService.serialize(data);
-        return serialized;
-      }),
-    );
-  }
-}
+import { Resource, ResourceData } from './dto/resource.dto';
+import { classToPlain, instanceToPlain } from 'class-transformer';
 
 @Injectable()
 export class SerializeEntityInterceptor implements NestInterceptor {
@@ -33,29 +19,35 @@ export class SerializeEntityInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, handler: CallHandler): Observable<any> {
     // run something before a request is handled by the request handler
     return handler.handle().pipe(
-      map((data: BaseEntity) => {
-        const serialized = this.serializerService.serializeEntity(data);
-        return serialized;
+      map((data: any) => {
+        return this.serializerService.serializeEntity(data);
       }),
     );
   }
 }
 
 @Injectable()
-export class SerializeEntityPageInterceptor implements NestInterceptor {
+export class SerializePageInterceptor implements NestInterceptor {
   constructor(private serializerService: SerializerService) {}
 
   intercept(context: ExecutionContext, handler: CallHandler): Observable<any> {
     // run something before a request is handled by the request handler
     return handler.handle().pipe(
-      map((data: Page<BaseEntity>) => {
+      map((data: any) => {
         const serializedData = this.serializerService.serializeEntityArray(
           data.data,
         );
 
-        const serializedPage = new Page<Resource>(serializedData, data.meta);
-
-        return serializedPage;
+        return new ResourceData({
+          data: serializedData.data,
+          includes: serializedData.includes,
+          pagination: {
+            count: data.count,
+            total: data.total,
+            page: data.page,
+            pageCount: data.pageCount,
+          },
+        });
       }),
     );
   }

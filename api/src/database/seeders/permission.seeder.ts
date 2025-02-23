@@ -9,24 +9,30 @@ export default class PermissionSeeder implements Seeder {
   ): Promise<any> {
     const permissionFactory = await factoryManager.get(Permission);
 
-    await permissionFactory.save({
-      name: 'resources.users.read',
-    });
+    const permissionCrudHandlers = [
+      'getManyBase',
+      'getOneBase',
+      'createOneBase',
+      'createManyBase',
+      'updateOneBase',
+      'replaceOneBase',
+      'deleteOneBase',
+      'recoverOneBase',
+    ];
 
-    await permissionFactory.save({
-      name: 'resources.users.create',
-    });
+    const crudResources = [
+      'users',
+      'roles',
+      'permissions',
+      'roles.relations.permissions',
+    ];
 
-    await permissionFactory.save({
-      name: 'resources.users.update',
-    });
-
-    await permissionFactory.save({
-      name: 'resources.users.delete',
-    });
-
-    await permissionFactory.save({
-      name: 'resources.users.test',
-    });
+    for (let i = 0; i < crudResources.length; i++) {
+      for (let j = 0; j < permissionCrudHandlers.length; j++) {
+        await permissionFactory.save({
+          name: `resources.${crudResources[i]}.${permissionCrudHandlers[j]}`,
+        });
+      }
+    }
   }
 }

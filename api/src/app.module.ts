@@ -1,15 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  APP_GUARD,
-  APP_INTERCEPTOR,
-  APP_PIPE,
-  RouterModule,
-} from '@nestjs/core';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ApiModule } from './api/api.module';
 import configuration from './config/configuration';
-import routes from './config/routes.config';
 import { ResponseInterceptor } from './serializer/response.interceptor';
 import { ClsModule } from 'nestjs-cls';
 import { ValidationPipe } from './validation/validation.pipe';

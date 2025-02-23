@@ -10,4 +10,5 @@ export default registerAs('database', () => ({
   entities: ['**/api/**/*.entity.js'],
   subscribers: ['**/api/**/*.subscriber.js'],
   synchronize: process.env.DB_SYNC == 'true',
+  logging: process.env.DB_LOGGING ? process.env.DB_LOGGING.split(',') : false,
 }));

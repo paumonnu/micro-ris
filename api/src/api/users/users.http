@@ -1,39 +1,49 @@
 ### GET
-GET {{apiUrl}}/resources/users?limit=3&sort=createdAt&include=role.permissions
+GET {{apiUrl}}/users?limit=25
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-GET {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c?include=role.permissions,info
+# GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd?join[]=role||name||on[0]=role.name||$eq||Admin
+GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd?join[]=role
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE
-POST {{apiUrl}}/resources/users
+POST {{apiUrl}}/users/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "email": "test@test.com",
-  "password": "123456"
+  "email": "fasfgyhreyhesdga435342sfasfas@test.com",
+  "password": "6Mahoney9!"
 }
 
 ### UPDATE
-PATCH {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c
+PATCH {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "email": "testaaa354f@test.coms"
+  "password": "gsdgdfbfdhdfghd"
 }
 
 ### DELETE
-DELETE {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c
+DELETE {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 ### GET RELATIONSHIP
-GET {{apiUrl}}/resources/users/942dfd2d-f309-42ae-8b5e-3f327ef8847c/relationships/info
+GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd/role
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### CREATE RELATIONSHIP
+GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd/role
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Test Role"
+}

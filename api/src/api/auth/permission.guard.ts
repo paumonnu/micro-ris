@@ -1,4 +1,4 @@
-import { Permissions } from './permissions.decorator';
+import { CrudPermissions, Permissions } from './permissions.decorator';
 import { Reflector } from '@nestjs/core';
 import { Permission } from '../permissions/entities/permission.entity';
 import {
@@ -25,6 +25,16 @@ export class PermissionsGuard {
       context.getHandler(),
       context.getClass(),
     ]);
+
+    // Get CRUD permission
+    const crudPermission = this.reflector.get(
+      CrudPermissions,
+      context.getClass(),
+    );
+
+    if (crudPermission) {
+      permissions.push(`${crudPermission}.${context.getHandler().name}`);
+    }
 
     if (!permissions.length) {
       return true;

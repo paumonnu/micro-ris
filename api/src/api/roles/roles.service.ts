@@ -1,23 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
-import { Role } from './entities/role.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QueryRoleDto } from './dto/query-roles.dto';
-import { CrudServiceFactory } from '@/src/crud/crud.service';
+import { TypeOrmCrudService } from '@dataui/crud-typeorm';
+import { Role } from './entities/role.entity';
 
 @Injectable()
-export class RolesService extends CrudServiceFactory<
-  Role,
-  CreateRoleDto,
-  UpdateRoleDto,
-  QueryRoleDto
->() {
-  constructor(
-    @InjectRepository(Role)
-    protected readonly repository: Repository<Role>,
-  ) {
-    super(repository);
+export class RolesService extends TypeOrmCrudService<Role> {
+  constructor(@InjectRepository(Role) repo) {
+    super(repo);
   }
 }

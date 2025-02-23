@@ -1,3 +1,4 @@
+import { PaginationMeta } from '@/src/shared/dto/pagination.dto';
 import { Expose, Transform } from 'class-transformer';
 
 export interface ResourceRelationship {
@@ -50,4 +51,16 @@ export class Resource {
     return returnVal;
   })
   relationships?: Resource | Resource[];
+}
+
+export class ResourceData {
+  constructor({ data, includes = [], pagination = undefined }) {
+    this.data = data;
+    this.includes = includes;
+    this.pagination = pagination;
+  }
+
+  data: Resource | Resource[];
+  includes: Resource[];
+  pagination?: PaginationMeta;
 }

@@ -1,4 +1,4 @@
-import { RelationshipsDto } from '@/src/common/dto/relationships.dto';
+import { RelationshipsDto } from '@/src/shared/dto/relationships.dto';
 import { IsRelationshipAllowed } from '@/src/validation/is-allowed-relationships';
 import { IsUserAllowed } from '@/src/validation/is-user-allowed';
 import { IsString } from 'class-validator';

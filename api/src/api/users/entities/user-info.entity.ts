@@ -2,9 +2,9 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { Column, Entity, OneToOne } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { User } from './user.entity';
-import { BaseEntity } from '@/src/common/base.entity';
+import { BaseEntity } from '@/src/shared/base.entity';
 
-@Entity()
+@Entity({ name: 'user_info' })
 export class UserInfo extends BaseEntity {
   @Column({ type: 'varchar', length: 64, nullable: true })
   @Expose()

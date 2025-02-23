@@ -1,8 +1,7 @@
 import { Expose, Transform } from 'class-transformer';
 import { format } from 'date-fns';
 import { Resource } from './resource.dto';
-import { isArray } from 'class-validator';
-import { PaginationMeta } from '@/src/common/dto/pagination.dto';
+import { PaginationMeta } from '@/src/shared/dto/pagination.dto';
 
 interface ApiResponseParams {
   status: number;
@@ -32,7 +31,7 @@ export class ApiResponseDto {
   timestamp: string;
 
   @Expose()
-  version: string = '0.1.0';
+  version: string;
 }
 
 export class ErrorResponseDto extends ApiResponseDto {

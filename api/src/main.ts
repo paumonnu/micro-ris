@@ -1,18 +1,22 @@
+import { CrudConfigService } from '@dataui/crud';
+import { crudConfig } from './config/crud.config';
+CrudConfigService.load(crudConfig);
+
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { useContainer } from 'class-validator';
-import { HttpExceptionFilter } from './common/filters/http.filter';
-import { TypeOrmExceptionFilter } from './common/filters/typeorm.filter';
-import { UnhandledExceptionFilter } from './common/filters/unhandled.filter';
+import { HttpExceptionFilter } from './shared/filters/http.filter';
+import { TypeOrmExceptionFilter } from './shared/filters/typeorm.filter';
+import { UnhandledExceptionFilter } from './shared/filters/unhandled.filter';
 import { ConfigService } from '@nestjs/config';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService: ConfigService = app.get(ConfigService);
 
   app.useGlobalFilters(
-    new UnhandledExceptionFilter(),
     new TypeOrmExceptionFilter(),
+    new UnhandledExceptionFilter(),
     new HttpExceptionFilter(),
   );
 

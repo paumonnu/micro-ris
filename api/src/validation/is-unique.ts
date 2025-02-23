@@ -8,7 +8,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { EntityManager } from 'typeorm';
-import { BaseEntity } from '../common/base.entity';
+import { BaseEntity } from '../shared/base.entity';
 
 export function IsUnique(
   entityClass: ClassConstructor<BaseEntity>,

@@ -1,10 +1,10 @@
 import { Expose } from 'class-transformer';
-import { BaseEntity } from '@/src/common/base.entity';
+import { BaseEntity } from '@/src/shared/base.entity';
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Permission } from '../../permissions/entities/permission.entity';
 
-@Entity()
+@Entity({ name: 'role' })
 export class Role extends BaseEntity {
   @Expose()
   type: string = 'roles';
@@ -18,7 +18,17 @@ export class Role extends BaseEntity {
   users: User[];
 
   @ManyToMany(() => Permission, (permission: Permission) => permission.roles)
-  @JoinTable()
+  @JoinTable({
+    name: 'permission_role',
+    joinColumn: {
+      name: 'roleId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'permissionId',
+      referencedColumnName: 'id',
+    },
+  })
   @Expose()
   permissions: Permission[];
 }

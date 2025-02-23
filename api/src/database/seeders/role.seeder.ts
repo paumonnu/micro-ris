@@ -8,12 +8,14 @@ export default class RoleSeeder implements Seeder {
     dataSource: DataSource,
     factoryManager: SeederFactoryManager,
   ): Promise<any> {
-    const roleFactory = await factoryManager.get(Role);
+    const roleFactory = factoryManager.get(Role);
     const permissionRepo = dataSource.getRepository(Permission);
+
+    const permissions = await permissionRepo.find();
 
     await roleFactory.save({
       name: 'Admin',
-      permissions: await permissionRepo.find(),
+      permissions: permissions,
     });
 
     await roleFactory.save({

@@ -1,16 +1,16 @@
 ### GET
-# GET {{apiUrl}}/resources/roles?id=003fd571-2dee-416c-9cb9-44b1c9a093b5&limit=1&sort=createdAt&include=role.permissions
-GET {{apiUrl}}/resources/roles?include=permissions
+# GET {{apiUrl}}/roles?id=6edfc9a3-98f5-448b-9386-9c75faf24c1d&limit=1&sort=createdAt&include=role.permissions
+GET {{apiUrl}}/roles?include=permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-GET {{apiUrl}}/resources/roles/d1a956ee-a1bb-4bee-ab49-0d83eecc235c?include=permissions
+GET {{apiUrl}}/roles/6edfc9a3-98f5-448b-9386-9c75faf24c1d?include=permissions
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE
-POST {{apiUrl}}/resources/roles
+POST {{apiUrl}}/roles
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -20,7 +20,7 @@ Authorization: Bearer {{token}}
 }
 
 ### UPDATE
-PATCH {{apiUrl}}/resources/roles/003fd571-2dee-416c-9cb9-44b1c9a093b5
+PATCH {{apiUrl}}/roles/6edfc9a3-98f5-448b-9386-9c75faf24c1d
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -29,6 +29,11 @@ Authorization: Bearer {{token}}
 }
 
 ### DELETE
-DELETE {{apiUrl}}/resources/roles/003fd571-2dee-416c-9cb9-44b1c9a093b5
+DELETE {{apiUrl}}/roles/6edfc9a3-98f5-448b-9386-9c75faf24c1d
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### GET ROLE PERMISSIONS
+GET {{apiUrl}}/roles/6edfc9a3-98f5-448b-9386-9c75faf24c1d/permissions?filter[]=name||$eq||resources.users.update
 Content-Type: application/json
 Authorization: Bearer {{token}}
