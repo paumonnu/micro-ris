@@ -12,7 +12,8 @@
   "editor.wordWrap": "on",
   "editor.detectIndentation": false,
   "eslint.run": "onSave",
-  "eslint.workingDirectories": ["./api"],
+  "eslint.workingDirectories": ["./api", "./client"],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript"],
   "files.autoSave": "onFocusChange",
   "files.associations": {
     ".env*": "dotenv"

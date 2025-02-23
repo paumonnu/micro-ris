@@ -20,10 +20,10 @@ services:
     restart: always
     ports:
       - 8889:8889
-      - 8882:8882
+      - 8888:8888
     environment:
       MAILDEV_WEB_PORT: 8889
-      MAILDEV_SMTP_PORT: 8882
+      MAILDEV_SMTP_PORT: 8888
 
   db:
     image: postgres:16.2
