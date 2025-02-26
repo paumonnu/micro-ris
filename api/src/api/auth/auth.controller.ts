@@ -62,7 +62,7 @@ export class AuthController {
   @Get('auth/me')
   @AuthToken()
   @UseInterceptors(SerializeEntityInterceptor)
-  async me(@CurrentUser() user: User): Promise<User> {
+  me(@CurrentUser() user: User): User {
     return user;
   }
 }

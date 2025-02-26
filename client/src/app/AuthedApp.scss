@@ -1,15 +1,9 @@
 #authed-app {
-  background-color: red;
   min-height: 100vh;
   display: flex;
   position: relative;
 
-  #authed-app-sidebar {
-    background-color: green;
-  }
-
   #authed-app-main {
-    background-color: blue;
     height: 100vh;
   }
 }

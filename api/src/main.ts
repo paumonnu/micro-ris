@@ -8,6 +8,7 @@ import { HttpExceptionFilter } from './shared/filters/http.filter';
 import { TypeOrmExceptionFilter } from './shared/filters/typeorm.filter';
 import { UnhandledExceptionFilter } from './shared/filters/unhandled.filter';
 import { ConfigService } from '@nestjs/config';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

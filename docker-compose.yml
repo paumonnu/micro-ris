@@ -29,14 +29,13 @@ services:
     image: postgres:16.2
     restart: always
     volumes:
-      - notifyappdb:/var/lib/postgresql/data/
+      - microrisdb:/var/lib/postgresql/data/
     ports:
       - 8881:5432
     environment:
-      POSTGRES_DB: notifyappdb
-      POSTGRES_USER: notifyappdbusr
+      POSTGRES_DB: microrisdb
+      POSTGRES_USER: microrisdbusr
       POSTGRES_PASSWORD: 6mahoney9!
 
 volumes:
-  notifyappdb:
-  notifyappdbtest:
+  microrisdb:

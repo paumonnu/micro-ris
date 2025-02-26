@@ -1,13 +1,14 @@
-import { useState } from "react";
-import "./App.css";
-import AuthedApp from "./AuthedApp";
+import './App.scss';
+import AuthedApp from './AuthedApp';
+import GuestApp from './GuestApp';
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
     <>
-      <AuthedApp></AuthedApp>
+      {/* <GuestApp /> */}
+      <AuthedApp />
     </>
   );
 }
