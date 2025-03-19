@@ -4,8 +4,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### GET ONE
-# GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd?join[]=role||name||on[0]=role.name||$eq||Admin
-GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd?join[]=role
+# GET {{apiUrl}}/users/a79fe3ed-bbcd-46f2-9949-a7766b1e7978?join[]=role||name||on[0]=role.name||$eq||Admin
+GET {{apiUrl}}/users/a79fe3ed-bbcd-46f2-9949-a7766b1e7978?join[]=role
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -20,7 +20,7 @@ Authorization: Bearer {{token}}
 }
 
 ### UPDATE
-PATCH {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd
+PATCH {{apiUrl}}/users/a79fe3ed-bbcd-46f2-9949-a7766b1e7978
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -29,18 +29,18 @@ Authorization: Bearer {{token}}
 }
 
 ### DELETE
-DELETE {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd
+DELETE {{apiUrl}}/users/a79fe3ed-bbcd-46f2-9949-a7766b1e7978
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 ### GET RELATIONSHIP
-GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd/role
+GET {{apiUrl}}/users/a79fe3ed-bbcd-46f2-9949-a7766b1e7978/role
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE RELATIONSHIP
-GET {{apiUrl}}/users/8793927f-9530-443e-899d-9e4022710ffd/role
+GET {{apiUrl}}/users/a79fe3ed-bbcd-46f2-9949-a7766b1e7978/role
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

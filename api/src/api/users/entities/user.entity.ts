@@ -6,9 +6,6 @@ import { UserInfo } from './user-info.entity';
 
 @Entity({ name: 'user' })
 export class User extends BaseEntity {
-  @Expose()
-  type: string = 'users';
-
   @Column({ type: 'varchar', length: 64, nullable: false, unique: true })
   @Expose()
   email: string;

@@ -1,8 +1,4 @@
 import { CrudGlobalConfig } from '@dataui/crud';
-import {
-  SerializeEntityInterceptor,
-  SerializePageInterceptor,
-} from '../serializer/serialize.interceptor';
 
 export const crudConfig: CrudGlobalConfig = {
   query: {
@@ -22,19 +18,19 @@ export const crudConfig: CrudGlobalConfig = {
   },
   routes: {
     getManyBase: {
-      interceptors: [SerializePageInterceptor],
+      // interceptors: [SerializePageInterceptor],
     },
     getOneBase: {
-      interceptors: [SerializeEntityInterceptor],
+      // interceptors: [SerializeEntityInterceptor],
     },
     createOneBase: {
       returnShallow: true,
-      interceptors: [SerializeEntityInterceptor],
+      // interceptors: [SerializeEntityInterceptor],
     },
     createManyBase: {},
     updateOneBase: {
       returnShallow: true,
-      interceptors: [SerializeEntityInterceptor],
+      // interceptors: [SerializeEntityInterceptor],
     },
     replaceOneBase: {},
     deleteOneBase: {},

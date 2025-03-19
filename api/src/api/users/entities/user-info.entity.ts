@@ -18,10 +18,4 @@ export class UserInfo extends BaseEntity {
   @Type(() => User)
   @Expose()
   user: User;
-
-  constructor() {
-    super();
-
-    this.type = 'user-info';
-  }
 }

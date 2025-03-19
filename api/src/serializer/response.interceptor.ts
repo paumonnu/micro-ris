@@ -28,23 +28,23 @@ export class ResponseInterceptor implements NestInterceptor {
         const status = response.statusCode;
 
         let responseData = data;
-        let responseIncludes;
+        // let responseIncludes;
         let responsePagination;
 
-        if (data instanceof ResourceData) {
-          responseData = data.data;
-          responseIncludes = data.includes;
-          responsePagination = data.pagination;
-        }
+        // if (data instanceof ResourceData) {
+        //   responseData = data.data;
+        //   // responseIncludes = data.includes;
+        //   responsePagination = data.pagination;
+        // }
 
-        const responseObj = new SuccessResponseDto({
-          status,
-          data: responseData,
-          includes: responseIncludes,
-          pagination: responsePagination,
-        });
+        // const responseObj = new SuccessResponseDto({
+        //   status,
+        //   data: responseData,
+        //   // includes: responseIncludes,
+        //   pagination: responsePagination,
+        // });
 
-        const responsePlain = instanceToPlain(responseObj, {
+        const responsePlain = instanceToPlain(responseData, {
           excludeExtraneousValues: true,
           // exposeUnsetFields: false,
         });

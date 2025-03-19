@@ -41,8 +41,13 @@ export default tseslint.config(
 
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-unsafe-assignment': 'warn',
       '@typescript-eslint/no-unsafe-return': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+
+      // '@typescript-eslint/no-unused-vars': 'warn',
+      // '@typescript-eslint/no-unsafe-assignment': 'warn',
+      // '@typescript-eslint/no-unsafe-return': 'warn',
+      // '@typescript-eslint/no-explicit-any': 'warn'
 
       // 'react/prop-types': ['error'],
       // 'react/require-default-props': 'warn',

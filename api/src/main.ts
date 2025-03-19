@@ -20,6 +20,8 @@ async function bootstrap() {
     new HttpExceptionFilter(),
   );
 
+  app.enableCors();
+
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(configService.get('app.port'));

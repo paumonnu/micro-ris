@@ -1,16 +1,18 @@
 {
-  "name": "notify-app",
+  "name": "micro-ris",
   "version": "0.1.0",
-  "description": "Notification App",
+  "description": "Micro RIS with basic management functions",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/paumonnu/notify-app.git"
+    "url": "git+https://github.com/paumonnu/micro-ris.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/paumonnu/notify-app/issues"
+    "url": "https://github.com/paumonnu/micro-ris/issues"
   },
-  "homepage": "https://github.com/paumonnu/notify-app#readme"
+  "homepage": "https://github.com/paumonnu/micro-ris#readme",
+  "dependencies": {},
+  "devDependencies": {}
 }

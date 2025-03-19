@@ -18,7 +18,7 @@ import { RegisterConfirmInputDto } from './dto/register-confirm-input.dto';
 import { RememberRegisterInputDto } from './dto/remember-register-input.dto';
 import { RememberPasswordInputDto } from './dto/remember-password-input.dto';
 import { ResetPasswordInputDto } from './dto/reset-password-input.dto';
-import { SerializeEntityInterceptor } from '@/src/serializer/serialize.interceptor';
+import { Auth } from './auth.decorator';
 
 @Controller()
 export class AuthController {
@@ -60,8 +60,7 @@ export class AuthController {
   }
 
   @Get('auth/me')
-  @AuthToken()
-  @UseInterceptors(SerializeEntityInterceptor)
+  @Auth()
   me(@CurrentUser() user: User): User {
     return user;
   }

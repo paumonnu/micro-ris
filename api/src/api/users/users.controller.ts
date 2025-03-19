@@ -27,9 +27,9 @@ import { CrudAuth } from '../auth/auth.decorator';
     update: UpdateUserDto,
   },
 })
-@CrudAuth({
-  permission: 'resources.users',
-})
+// @CrudAuth({
+//   permission: 'resources.users',
+// })
 @Controller('users')
 export class UsersController implements CrudController<User> {
   constructor(public service: UsersService) {}
