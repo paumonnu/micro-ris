@@ -1,4 +1,4 @@
-import { ChevronDown, SlidersHorizontal } from 'lucide-react';
+import { ChevronDown, Filter, SlidersHorizontal } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -9,15 +9,19 @@ import { Input } from '../ui/input';
 import { Column } from '@tanstack/react-table';
 import { Button } from '../ui/button';
 import { useState } from 'react';
+import { CreateQueryParams } from '@dataui/crud-request';
+import { PaginatedListFilterFormProps } from '@/types/filter-form-props';
 
 export type PaginatedListFiltersProps = {
   columns: Column<any>[];
-  filterForm?: React.FunctionComponent;
+  filterFormComponent?: React.FunctionComponent<PaginatedListFilterFormProps>;
+  onFiltersChange?: (filters) => void;
 };
 
 export function PaginatedListFilters({
   columns,
-  filterForm: FilterForm,
+  onFiltersChange,
+  filterFormComponent: FilterFormComponent,
 }: PaginatedListFiltersProps) {
   const [showFilters, setShowFilters] = useState(false);
 
@@ -45,13 +49,15 @@ export function PaginatedListFilters({
                       column.toggleVisibility(!!value)
                     }
                   >
-                    {column.id}
+                    {column.columnDef.meta
+                      ? (column.columnDef.meta as any).name
+                      : column.id}
                   </DropdownMenuCheckboxItem>
                 );
               })}
             </DropdownMenuContent>
           </DropdownMenu>
-          {FilterForm && (
+          {FilterFormComponent && (
             <SlidersHorizontal
               className="text-foreground cursor-pointer"
               onClick={() => setShowFilters(!showFilters)}
@@ -59,9 +65,9 @@ export function PaginatedListFilters({
           )}
         </div>
       </div>
-      {showFilters && FilterForm && (
+      {showFilters && FilterFormComponent && onFiltersChange && (
         <div className="pb-4">
-          <FilterForm />
+          <FilterFormComponent onFiltersChange={onFiltersChange} />
         </div>
       )}
     </>

@@ -1,22 +1,15 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import logo from '../../assets/img/microris-logo3.png';
+import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { login } from '../../api/auth';
 import { useStore } from '../../hooks/useStore';
-import { useEffect } from 'react';
-import { fetchApi } from '../../api/fetch';
-import { useMe } from '../../hooks/useMe';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import micrologo from '../../assets/img/microris-logo3.png';
@@ -33,13 +26,6 @@ const formSchema = z.object({
 });
 
 function Login() {
-  const {
-    register,
-    handleSubmit,
-    // watch,
-    // formState: { errors },
-  } = useForm<FormInputs>();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

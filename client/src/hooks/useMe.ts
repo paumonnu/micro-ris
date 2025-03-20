@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '../api/fetch';
 import { useStore } from './useStore';
 import { User } from '../types/entities/user';
+import { jwtDecode } from 'jwt-decode';
 
 async function getMe(): Promise<User> {
   const response = await fetchApi('auth/me');
@@ -11,16 +12,13 @@ async function getMe(): Promise<User> {
 export function useMe() {
   const token = useStore((state) => state.auth.token);
 
-  const fallback = {
-    email: '',
-    info: {
-      firstName: '',
-      lastName: '',
-    },
-  };
+  let decoded;
+  if (token) {
+    decoded = jwtDecode(token);
+  }
 
-  const { data = fallback } = useQuery({
-    queryKey: ['me'],
+  const { data } = useQuery({
+    queryKey: ['users', decoded.sub as any],
     queryFn: getMe,
     enabled: !!token,
   });

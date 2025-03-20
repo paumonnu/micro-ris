@@ -1,5 +1,5 @@
 ### GET
-GET {{apiUrl}}/users?limit=25
+GET {{apiUrl}}/users?limit=25&join[0]=role&sort[0]=role.name,ASC
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
